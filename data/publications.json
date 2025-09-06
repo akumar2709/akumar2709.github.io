@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Robust Federated Learning against Model Poisoning Attacks",
+    "authors": ["A. Kumar", "B. Collaborator"],
+    "venue": "ICML",
+    "year": 2025,
+    "pdf": "https://arxiv.org/pdf/xxxx.xxxxx.pdf",
+    "code": "https://github.com/akumar2709/project",
+    "doi": "",
+    "order": 2
+  },
+  {
+    "title": "Evaluating Multimodal Safety at Scale",
+    "authors": ["A. Kumar", "C. Teammate"],
+    "venue": "NeurIPS",
+    "year": 2024,
+    "pdf": "https://arxiv.org/pdf/xxxx.xxxxx.pdf",
+    "code": "",
+    "doi": ""
+  },
+  {
+    "title": "Lightweight Evals for Agentic Systems",
+    "authors": ["A. Kumar"],
+    "venue": "Workshop on Safe Agents",
+    "year": 2024,
+    "pdf": "",
+    "code": "https://github.com/akumar2709/evals",
+    "doi": ""
+  }
+]
