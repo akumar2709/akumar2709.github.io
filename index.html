@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Arnav Kumar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Researcher in ML/AI. Publications, projects, and contact." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="preload" href="assets/styles.css" as="style" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="canonical" href="https://akumar2709.github.io/" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Arnav Kumar" />
+  <meta property="og:description" content="Researcher in ML/AI. Publications, projects, and contact." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://akumar2709.github.io/" />
+  <meta property="og:image" content="assets/images/profile.jpg" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Arnav Kumar</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#pubs">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">
+          <svg aria-hidden="true"><use href="assets/icons.svg#sun-moon"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="intro">
+      <img class="avatar" src="assets/images/profile.jpg" alt="Portrait of Arnav Kumar" />
+      <div>
+        <h1 id="intro">Arnav Kumar</h1>
+        <p class="tagline">ML researcher · Robustness & safety</p>
+        <p class="meta">
+          <a class="chip" href="mailto:you@domain.com" aria-label="Email">
+            <svg aria-hidden="true"><use href="assets/icons.svg#mail"/></svg> Email
+          </a>
+          <a class="chip" href="https://github.com/akumar2709" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="assets/icons.svg#github"/></svg> GitHub
+          </a>
+          <a class="chip" href="https://scholar.google.com" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="assets/icons.svg#scholar"/></svg> Scholar
+          </a>
+          <a class="chip" href="assets/docs/cv.pdf" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="assets/icons.svg#file"/></svg> CV
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-h">
+      <h2 id="about-h">About</h2>
+      <p>
+        I’m a researcher focused on trustworthy machine learning—robustness, privacy, and
+        evaluation. I enjoy building clear, reproducible artifacts and tools.
+      </p>
+      <p class="muted">
+        This site is intentionally simple: fast to load, easy to edit, and pleasant to read.
+      </p>
+    </section>
+
+    <!-- NEWS (loads from data/news.json) -->
+    <section id="news" aria-labelledby="news-h">
+      <h2 id="news-h">News</h2>
+      <ul id="news-list" class="timeline" aria-live="polite"></ul>
+    </section>
+
+    <!-- PUBLICATIONS (loads from data/publications.json) -->
+    <section id="pubs" aria-labelledby="pubs-h">
+      <div class="section-header">
+        <h2 id="pubs-h">Publications</h2>
+        <div class="pub-controls">
+          <input id="pub-search" class="input" type="search" placeholder="Search title/venue/authors…" aria-label="Search publications" />
+          <select id="pub-year" class="input" aria-label="Filter by year">
+            <option value="">All years</option>
+          </select>
+        </div>
+      </div>
+      <ol id="pub-list" class="pubs"></ol>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" aria-labelledby="projects-h">
+      <h2 id="projects-h">Selected Projects</h2>
+      <div class="grid" id="projects-grid">
+        <article class="card">
+          <h3><a href="#">Lightweight evals for LLM safety</a></h3>
+          <p>Small, fast checks you can run before shipping an agent.</p>
+        </article>
+        <article class="card">
+          <h3><a href="#">Robust audio prompts</a></h3>
+          <p>Exploring multilingual attacks and defenses for audio LLMs.</p>
+        </article>
+        <article class="card">
+          <h3><a href="#">Reproducible notebooks</a></h3>
+          <p>Cookiecutter for dependable ML experiments.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section id="teaching" aria-labelledby="teaching-h">
+      <h2 id="teaching-h">Teaching</h2>
+      <ul class="compact">
+        <li>Spring 2025 — Intro to ML (TA)</li>
+        <li>Fall 2024 — Responsible AI reading group (organizer)</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contact</h2>
+      <p>Email is best: <a href="mailto:you@domain.com">you@domain.com</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> Arnav Kumar • Built with plain HTML/CSS/JS • <a href="https://akumar2709.github.io">akumar2709.github.io</a></p>
+      <p class="muted" id="last-updated">Last updated: —</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/main.js"></script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Arnav Kumar",
+    "url":"https://akumar2709.github.io",
+    "image":"https://akumar2709.github.io/assets/images/profile.jpg",
+    "jobTitle":"Researcher",
+    "affiliation":{"@type":"Organization","name":"Your Institution"},
+    "sameAs":["https://github.com/akumar2709","https://scholar.google.com"]
+  }
+  </script>
+</body>
+</html>

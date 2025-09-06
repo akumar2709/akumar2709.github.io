@@ -1,0 +1,9 @@
+{
+  "name": "Arnav Kumar",
+  "short_name": "Arnav",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [{ "src": "assets/favicon.svg", "sizes": "64x64", "type": "image/svg+xml" }]
+}
