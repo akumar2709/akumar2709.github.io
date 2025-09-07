@@ -1,6 +1,6 @@
-// Smooth scroll (JS fallback for browsers that ignore CSS scroll-behavior)
+// Smooth scroll with header offset (fallback for browsers ignoring CSS)
 (function () {
-  const headerOffset = 72; // matches CSS scroll-margin-top
+  const headerOffset = 72;
   function smoothTo(hash) {
     const el = document.querySelector(hash);
     if (!el) return;
@@ -10,8 +10,9 @@
   document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      smoothTo(a.getAttribute('href'));
-      history.pushState(null, '', a.getAttribute('href'));
+      const hash = a.getAttribute('href');
+      smoothTo(hash);
+      history.pushState(null, '', hash);
     });
   });
 })();
