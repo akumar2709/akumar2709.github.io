@@ -4,7 +4,6 @@
   --fg: #0b0b0c;
   --muted: #63666a;
   --link: #2b6cb0;
-  --link-visited: #5a43a1;
   --card: #f6f7f9;
   --line: #e8eaef;
   --radius: 16px;
@@ -19,7 +18,6 @@ html[data-theme="dark"],
     --fg: #eceff4;
     --muted: #a2a6ad;
     --link: #89b4ff;
-    --link-visited: #b4a1ff;
     --card: #131316;
     --line: #22232a;
     --shadow: none;
@@ -28,6 +26,7 @@ html[data-theme="dark"],
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
+html { scroll-behavior: smooth; }           /* smooth scroll */
 body {
   margin: 0;
   background: var(--bg);
@@ -38,7 +37,8 @@ body {
 
 .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
 a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:visited { color: var(--link-visited); }
+a:visited { color: var(--link); }           /* no purple visited links */
+.chip:visited { color: var(--fg); }
 h1, h2, h3 { line-height: 1.2; margin: 0 0 .5rem; }
 h1 { font-size: clamp(2rem, 3vw, 2.8rem); letter-spacing: .2px; }
 h2 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin-top: 2.2rem; }
@@ -47,25 +47,26 @@ p { margin: .6rem 0; }
 ul, ol { padding-left: 1.2rem; }
 img { max-width: 100%; height: auto; border-radius: 12px; }
 
+/* Keep anchors from hiding under sticky header */
+section { scroll-margin-top: 72px; }
+
 .skip { position: absolute; left: -10000px; top: auto; }
 .skip:focus { left: 12px; top: 12px; background: var(--bg); padding: .5rem .75rem; border: 1px solid var(--line); border-radius: 8px; }
 
 /* --- Header ------------------------------------------------------------ */
 .site-header {
-  backdrop-filter: saturate(140%) blur(6px);
   position: sticky; top: 0; z-index: 10;
   border-bottom: 1px solid var(--line);
   background: color-mix(in oklab, var(--bg), transparent 10%);
+  backdrop-filter: saturate(140%) blur(6px);
 }
 .site-header .wrap { display: flex; align-items: center; gap: 16px; padding: 10px 20px; }
 .brand { font-weight: 700; color: var(--fg); text-decoration: none; }
 .nav { display: flex; align-items: center; gap: 14px; margin-left: auto; }
-.nav a { color: var(--fg); opacity: .8; text-decoration: none; }
-.nav a:hover { opacity: 1; }
-.theme-btn {
-  border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; background: var(--bg);
-}
-.theme-btn svg { width: 18px; height: 18px; display: block; }
+.nav a { color: var(--fg); opacity: .85; text-decoration: none; padding: 6px 2px; border-radius: 8px; }
+.nav a:hover, .nav a:focus { opacity: 1; background: var(--card); }
+
+/* removed .theme-btn styles to eliminate the white box */
 
 /* --- Hero -------------------------------------------------------------- */
 .hero { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; margin: 28px 0 10px; }
@@ -73,12 +74,12 @@ img { max-width: 100%; height: auto; border-radius: 12px; }
 .tagline { margin-top: .2rem; color: var(--muted); }
 .meta { margin-top: .5rem; display: flex; gap: 8px; flex-wrap: wrap; }
 .chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: .92rem; padding: 6px 10px; border: 1px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: .92rem; padding: 6px 12px; border: 1px solid var(--line);
   border-radius: 999px; text-decoration: none; color: var(--fg);
   background: var(--card);
 }
-.chip svg { width: 16px; height: 16px; }
+.chip svg { width: 16px; height: 16px; display: inline-block; }
 
 /* --- Sections ---------------------------------------------------------- */
 .section-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -91,7 +92,6 @@ img { max-width: 100%; height: auto; border-radius: 12px; }
 .pubs li { counter-increment: ref; margin: 14px 0; padding-left: 1.2rem; text-indent: -1.2rem; }
 .pubs li::marker { content: none; }
 .pubs li::before { content: "[" counter(ref) "] "; color: var(--muted); }
-.pubs .authors { }
 .pubs .title { font-weight: 600; }
 .pubs .venue { font-style: italic; color: var(--muted); }
 .pubs .links a { margin-right: .6rem; }
@@ -115,6 +115,6 @@ img { max-width: 100%; height: auto; border-radius: 12px; }
 
 /* --- Print ------------------------------------------------------------- */
 @media print {
-  .site-header, .theme-btn, .nav, #projects, #news { display: none !important; }
+  .site-header, .nav, #projects, #news { display: none !important; }
   body { background: #fff; color: #000; }
 }
