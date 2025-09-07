@@ -1,13 +1,18 @@
-// Theme toggle with localStorage
+// Smooth scroll (JS fallback for browsers that ignore CSS scroll-behavior)
 (function () {
-  const root = document.documentElement;
-  const btn = document.getElementById('theme-toggle');
-  const saved = localStorage.getItem('theme');
-  if (saved) root.setAttribute('data-theme', saved);
-  btn?.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', current);
-    localStorage.setItem('theme', current);
+  const headerOffset = 72; // matches CSS scroll-margin-top
+  function smoothTo(hash) {
+    const el = document.querySelector(hash);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+  document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      smoothTo(a.getAttribute('href'));
+      history.pushState(null, '', a.getAttribute('href'));
+    });
   });
 })();
 
@@ -19,7 +24,7 @@
   if (u) u.textContent = "Last updated: " + new Date(document.lastModified).toLocaleDateString();
 })();
 
-// Load news
+// News list
 (async function () {
   const el = document.getElementById('news-list');
   if (!el) return;
@@ -30,12 +35,12 @@
     el.innerHTML = items.map(n =>
       `<li><time datetime="${n.date}">${new Date(n.date).toLocaleDateString()}</time>${n.text}</li>`
     ).join('');
-  } catch (e) {
+  } catch {
     el.innerHTML = '<li class="muted">News will appear here.</li>';
   }
 })();
 
-// Load publications + filters
+// Publications
 (async function () {
   const list = document.getElementById('pub-list');
   const yearSel = document.getElementById('pub-year');
@@ -46,7 +51,7 @@
   try {
     const res = await fetch('data/publications.json', { cache: 'no-store' });
     pubs = await res.json();
-  } catch (e) {
+  } catch {
     list.innerHTML = '<li class="muted">Publications will appear here.</li>';
     return;
   }
@@ -59,18 +64,17 @@
     const y = yearSel.value;
     const filtered = pubs.filter(p =>
       (!y || String(p.year) === y) &&
-      (!q || [p.title, p.venue, p.authors.join(' ')].join(' ').toLowerCase().includes(q))
+      (!q || [p.title, p.venue, (p.authors||[]).join(' ')].join(' ').toLowerCase().includes(q))
     );
-
     list.innerHTML = filtered
       .sort((a,b) => (b.year - a.year) || (b.order || 0) - (a.order || 0))
       .map(p => {
-        const links = []
+        const links = [];
         if (p.pdf) links.push(`<a href="${p.pdf}" target="_blank" rel="noopener">PDF</a>`);
         if (p.code) links.push(`<a href="${p.code}" target="_blank" rel="noopener">Code</a>`);
         if (p.doi) links.push(`<a href="${p.doi}" target="_blank" rel="noopener">DOI</a>`);
         return `<li>
-          <span class="authors">${p.authors.join(', ')}</span>.
+          <span class="authors">${(p.authors||[]).join(', ')}</span>.
           <span class="title">${p.title}</span>.
           <span class="venue">${p.venue} (${p.year})</span>.
           <span class="links">${links.join(' ')}</span>
