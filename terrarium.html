@@ -20,13 +20,6 @@
       --code-bg: #0b1020;
       --code-text: #e5e7eb;
       --shadow: 0 1px 2px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.1);
-
-      /* Chat palette */
-      --good: #16a34a;       /* Bob */
-      --ally: #0ea5e9;       /* Alice */
-      --bad: #dc2626;        /* Adversary (red) */
-      --bubble: #ffffff;
-      --bubble-alt: #f8fafc;
     }
     [data-theme="dark"] {
       --bg: #0b1020;
@@ -39,9 +32,6 @@
       --code-bg: #0a0f1e;
       --code-text: #e5e7eb;
       --shadow: 0 1px 2px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.25);
-
-      --bubble: #0f172a;
-      --bubble-alt: #0b1529;
     }
 
     /* === Reset & Base === */
@@ -82,6 +72,7 @@
       padding: .5rem .75rem;
       background: var(--bg);
       border-bottom: 1px solid var(--border);
+      /* Anchor for absolute search dropdown */
       position: relative;
     }
     .topbar .brand { display: flex; align-items: center; gap: .5rem; font-weight: 700; }
@@ -97,7 +88,9 @@
       padding: .4rem .6rem;
       box-shadow: var(--shadow);
     }
-    .topbar input[type="search"] { border: 0; outline: 0; background: transparent; color: var(--text); width: 100%; }
+    .topbar input[type="search"] {
+      border: 0; outline: 0; background: transparent; color: var(--text); width: 100%;
+    }
     .topbar .actions { display: flex; align-items: center; gap: .5rem; }
     .btn, .icon-btn {
       display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
@@ -108,7 +101,7 @@
     .sidebar {
       grid-area: sidebar;
       position: sticky;
-      top: 3.25rem;
+      top: 3.25rem; /* height of topbar */
       align-self: start;
       height: calc(100vh - 3.25rem);
       overflow: auto;
@@ -175,7 +168,7 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      top: 3.1rem;
+      top: 3.1rem; /* just below the topbar */
       width: min(720px, calc(100% - 1rem));
       max-height: 60vh;
       overflow: auto;
@@ -188,8 +181,13 @@
     }
     .search-results.open { display: block; }
     .search-results .item {
-      width: 100%; text-align: left; border: 0; background: transparent; cursor: pointer;
-      padding: .6rem .75rem; display: block;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      padding: .6rem .75rem;
+      display: block;
     }
     .search-results .item[aria-selected="true"],
     .search-results .item:hover { background: var(--bg-alt); }
@@ -199,9 +197,548 @@
       .search-results { left: .5rem; right: .5rem; transform: none; width: auto; }
     }
 
-    /* === Callout === */
+    /* === Callout (Important/Note/Warning) === */
     .callout {
-      display: flex; align-items: flex-start; border-left: 4px solid var(--accent);
-      background: var(--bg-alt); padding: 0.75rem 1rem; margin: 1rem 0; border-radius: 8px; box-shadow: var(--shadow);
+      display: flex;
+      align-items: flex-start;
+      border-left: 4px solid var(--accent);
+      background: var(--bg-alt);
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
     }
-    .callout-icon { font-size: 1.3rem; margin-right
+    .callout-icon {
+      font-size: 1.3rem;
+      margin-right: 0.75rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+    .callout-content {
+      flex: 1;
+      color: var(--text);
+    }
+    .callout.important {
+      border-left-color: #8b5cf6; /* purple highlight */
+    }
+
+    /* === Copy button containment === */
+    .pre-wrap { position: relative; overflow: hidden; } /* ensures button can't overlap next blocks */
+    .copy-btn {
+      position: absolute;
+      top: .5rem;
+      right: .5rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: .3rem .55rem;
+      border-radius: 10px;
+      z-index: 2;          /* above code, below everything else */
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <a href="#content" class="skip">Skip to content</a>
+
+  <div class="layout">
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <button class="icon-btn" id="menuBtn" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">☰</button>
+
+      <div class="brand" aria-label="Site home">
+        <svg id="terrariumLogo" width="260" height="40" role="img" aria-label="Terrarium logo"></svg>
+      </div>
+
+      <form class="search" role="search" aria-label="Site search" onsubmit="return false;">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M10 4a6 6 0 1 1 0 12A6 6 0 0 1 10 4m0-2a8 8 0 1 0 4.9 14.32l4.4 4.38l1.4-1.4l-4.39-4.39A8 8 0 0 0 10 2"/></svg>
+        <input id="searchInput" type="search" placeholder="Search the docs ( / )" autocomplete="off" />
+        <kbd>/</kbd>
+      </form>
+      <div id="searchResults" class="search-results" role="listbox" aria-label="Search results"></div>
+
+      <div class="actions">
+        <select id="versionSelect" class="btn" aria-label="Version selector">
+          <option>latest</option>
+          <option>v1.2</option>
+          <option>v1.1</option>
+        </select>
+        <button class="btn" id="themeBtn" aria-label="Toggle theme">🌙 Theme</button>
+        <a class="btn" href="https://github.com/yourorg/yourframework" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar" aria-label="Primary navigation">
+      <div class="section-title">Getting Started</div>
+      <ul class="nav">
+        <li><a class="active" href="#">Introduction</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#quickstart">Quickstart</a></li>
+      </ul>
+
+      <div class="section-title">Guides</div>
+      <ul class="nav">
+        <li>
+          <details open>
+            <summary>Core Concepts</summary>
+            <div class="tree">
+              <a href="#concepts-architecture">Architecture</a>
+              <a href="#concepts-lifecycle">Lifecycle</a>
+              <a href="#concepts-config">Configuration</a>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary>Advanced</summary>
+            <div class="tree">
+              <a href="#advanced-performance">Performance</a>
+              <a href="#advanced-plugins">Plugins</a>
+              <a href="#advanced-testing">Testing</a>
+            </div>
+          </details>
+        </li>
+      </ul>
+
+      <div class="section-title">API Reference</div>
+      <ul class="nav">
+        <li><a href="#api-module-a">Module A</a></li>
+        <li><a href="#api-module-b">Module B</a></li>
+      </ul>
+
+      <div class="section-title">Resources</div>
+      <ul class="nav">
+        <li><a href="#changelog">Changelog</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#community">Community</a></li>
+      </ul>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+
+    <!-- Main -->
+    <main class="main" id="content">
+      <article class="content" aria-label="Documentation article">
+        <header class="breadcrumbs" aria-label="Breadcrumb">
+          Home / Docs / Getting Started / <strong>Introduction</strong>
+        </header>
+
+        <h1>Terrarium: Revisiting the Blackboard for Multi-Agent Safety, Privacy, and Security Studies</h1>
+        <p>
+          Terrarium allows researchers to study potential safety, privacy, and security risks that can occur when deploying multi-agent systems. The framework utilizes a blackboard design to create a modular and configurable testbed that enables agents to collaborate. This modular design allows researchers to study different attack surfaces and attack vectors by providing fine-grained control over various aspects of the interaction, such as persistent storage and communication protocols.
+        </p>
+
+        <blockquote>
+          Tip: Replace placeholder links, logo, and navigation with your content. The
+          JS at the bottom includes hooks for search, versioning, and theme persistence.
+        </blockquote>
+
+        <h2 id="installation">Installation</h2>
+        <p>Install using your preferred package manager:</p>
+        <pre><code class="language-bash"># Clone Repository
+git clone https://github.com/umass-aisec/Terrarium
+cd terrarium
+
+# Install Dependancies
+pip install -r requirements.txt
+
+# or pip (example)
+pip install yourframework</code></pre>
+
+        <div class="callout important">
+          <div class="callout-icon">💬</div>
+          <div class="callout-content">
+            <strong>Important</strong><br>
+            ChatDBG currently needs to be connected to an <a href="#">OpenAI account</a>.
+            Your account will need to have a positive balance for this to work
+            (<a href="#">check your balance</a>).
+          </div>
+        </div>
+
+        <h2 id="quickstart">Quickstart</h2>
+        <ol>
+          <li>Set environment keys</li>
+          <li>Import and configure YourFramework</li>
+          <li>Start the dev server</li>
+        </ol>
+
+        <pre><code class="language-bash"># Clone Repository
+git clone https://github.com/umass-aisec/Terrarium
+cd terrarium
+
+# Install Dependancies
+pip install -r requirements.txt
+
+# or pip (example)
+pip install yourframework</code></pre>
+
+        <h2 id="concepts-architecture">Architecture</h2>
+        <p>Describe your framework's high-level architecture here.</p>
+
+        <h2 id="concepts-lifecycle">Lifecycle</h2>
+        <p>Explain the lifecycle of components or apps built with YourFramework.</p>
+
+        <h2 id="concepts-config">Configuration</h2>
+        <table>
+          <thead>
+            <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>port</td><td>number</td><td>3000</td><td>Dev server port</td></tr>
+            <tr><td>verbose</td><td>boolean</td><td>false</td><td>Enable detailed logging</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="advanced-performance">Performance</h2>
+        <p>Guidance on profiling, caching, and tuning.</p>
+
+        <h2 id="advanced-plugins">Plugins</h2>
+        <p>How to write and distribute plugins.</p>
+
+        <h2 id="advanced-testing">Testing</h2>
+        <p>Testing strategies and examples.</p>
+
+        <h2 id="api-module-a">API: Module A</h2>
+        <p>Document functions, classes, and types.</p>
+
+        <h2 id="api-module-b">API: Module B</h2>
+        <p>Document functions, classes, and types.</p>
+
+        <h2 id="changelog">Changelog</h2>
+        <ul>
+          <li><strong>v1.2</strong> — 2025-10-01: Added widgets and performance improvements.</li>
+          <li><strong>v1.1</strong> — 2025-06-18: New plugin interface.</li>
+        </ul>
+
+        <h2 id="faq">FAQ</h2>
+        <p>Answer common questions here.</p>
+
+        <h2 id="community">Community</h2>
+        <p>Links to discussions, Discord, and contributing guide.</p>
+
+        <nav class="bottom-nav" aria-label="Page navigation">
+          <a class="card-link" href="#previous"><small>Previous</small>Getting Started</a>
+          <a class="card-link" style="text-align:right" href="#next"><small>Next</small>Installation</a>
+        </nav>
+      </article>
+
+      <aside class="toc" aria-label="On this page">
+        <div class="title">On this page</div>
+        <ul id="tocList"></ul>
+      </aside>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div>© <span id="year"></span> YourOrg • <a href="/license">MIT License</a> • <a href="/privacy">Privacy</a></div>
+  </footer>
+
+  <!-- Optional: Prism.js for syntax highlighting -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.min.css"> -->
+
+  <script>
+    // ===== Utility helpers =====
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Persisted theme
+    const themeBtn = document.getElementById('themeBtn');
+    const setTheme = (mode) => {
+      document.documentElement.setAttribute('data-theme', mode);
+      try { localStorage.setItem('theme', mode); } catch {}
+      themeBtn.textContent = (mode === 'dark') ? '☀️ Theme' : '🌙 Theme';
+    }
+    const saved = (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) ||
+                  (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(saved);
+    themeBtn.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    const toggleSidebar = (open) => {
+      sidebar.classList.toggle('open', open);
+      backdrop.classList.toggle('show', open);
+      backdrop.hidden = !open;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    };
+    menuBtn.addEventListener('click', () => toggleSidebar(!sidebar.classList.contains('open')));
+    backdrop.addEventListener('click', () => toggleSidebar(false));
+
+    // ===== Search (client-side, no deps) =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      const resultsEl   = document.getElementById('searchResults');
+      const article     = document.querySelector('article.content');
+
+      if (!searchInput || !resultsEl || !article) return;
+
+      const slug = (txt='') => txt.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+      const ensureId = (el) => { if (el.id) return el.id; el.id = slug(el.textContent || 'section'); return el.id; };
+
+      const blocks = Array.from(article.querySelectorAll('h1,h2,h3,p,li,pre code'));
+
+      const items = blocks.map((el) => {
+        let target = el;
+        if (!/^H[1-3]$/i.test(el.tagName)) {
+          let prev = el.previousElementSibling;
+          while (prev && !/^H[1-3]$/i.test(prev.tagName)) prev = prev.previousElementSibling;
+          if (prev) target = prev;
+        }
+        const id = ensureId(target);
+        theTitle = (target.textContent || '').trim();
+        const title = theTitle;
+        const text  = (el.textContent || '').replace(/\s+/g,' ').trim();
+        return { title, text, href: `#${id}` };
+      }).filter(it => it.title || it.text);
+
+      const score = (it, tokens) => {
+        const t = it.title.toLowerCase();
+        const x = it.text.toLowerCase();
+        let s = 0;
+        for (const tok of tokens) {
+          if (t.startsWith(tok)) s += 5;
+          if (t.includes(tok))  s += 3;
+          if (x.includes(tok))  s += 1;
+        }
+        return s;
+      };
+
+      const makeSnippet = (text, q) => {
+        const T = text || '';
+        const i = T.toLowerCase().indexOf(q.toLowerCase());
+        if (i < 0) return T.slice(0, 120) + (T.length > 120 ? '…' : '');
+        const a = Math.max(0, i - 40), b = Math.min(T.length, i + q.length + 40);
+        return (a>0?'…':'') + T.slice(a,b) + (b<T.length?'…':'');
+      };
+
+      let active = -1;
+
+      const updateActive = () => {
+        const rows = [...resultsEl.querySelectorAll('.item')];
+        rows.forEach((r,i) => r.setAttribute('aria-selected', String(i===active)));
+      };
+
+      const navigate = (href) => {
+        resultsEl.classList.remove('open');
+        resultsEl.innerHTML = '';
+        const id = (href || '').slice(1);
+        const el = id && document.getElementById(id);
+        if (el) {
+          history.pushState(null, '', `#${id}`);
+          el.scrollIntoView({ behavior:'smooth', block:'start' });
+          el.style.outline = `2px solid var(--accent)`;
+          setTimeout(() => el.style.outline = '', 900);
+        }
+      };
+
+      const render = (list) => {
+        resultsEl.innerHTML = '';
+        if (!list.length) { resultsEl.classList.remove('open'); return; }
+        list.slice(0,12).forEach((it) => {
+          const btn = document.createElement('button');
+          btn.className = 'item';
+          btn.type = 'button';
+          btn.setAttribute('role','option');
+          btn.dataset.href = it.href;
+          btn.innerHTML = `<span class="title">${it.title || 'Untitled section'}</span>
+                           <span class="snippet">${it.snippet || ''}</span>`;
+          btn.addEventListener('click', () => navigate(it.href));
+          resultsEl.appendChild(btn);
+        });
+        active = -1;
+        resultsEl.classList.add('open');
+        updateActive();
+      };
+
+      const runSearch = (q) => {
+        const query = (q || '').trim();
+        if (!query) { resultsEl.classList.remove('open'); resultsEl.innerHTML=''; return; }
+        const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const list = items.map(it => ({
+          ...it,
+          s: score(it, tokens),
+          snippet: makeSnippet(it.text, query)
+        })).filter(it => it.s > 0)
+          .sort((a,b) => b.s - a.s || a.title.localeCompare(b.title));
+        render(list);
+      };
+
+      // Input
+      searchInput.addEventListener('input', (e) => runSearch(e.target.value));
+
+      // Keyboard: global “/” to focus
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput) {
+          e.preventDefault(); searchInput.focus();
+        }
+      });
+
+      // Keyboard inside box
+      searchInput.addEventListener('keydown', (e) => {
+        const rows = [...resultsEl.querySelectorAll('.item')];
+        if (!rows.length) return;
+        if (e.key === 'ArrowDown') {
+          e.preventDefault(); active = (active + 1) % rows.length; updateActive(); rows[active].scrollIntoView({ block:'nearest' });
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault(); active = (active - 1 + rows.length) % rows.length; updateActive(); rows[active].scrollIntoView({ block:'nearest' });
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          const href = (active >= 0 ? rows[active] : rows[0]).dataset.href;
+          navigate(href);
+        } else if (e.key === 'Escape') {
+          resultsEl.classList.remove('open'); resultsEl.innerHTML='';
+        }
+      });
+
+      // Click outside to close
+      document.addEventListener('click', (e) => {
+        const within = e.target.closest('.search, #searchResults');
+        if (!within) { resultsEl.classList.remove('open'); resultsEl.innerHTML=''; }
+      });
+    });
+
+    // Build TOC & Scrollspy
+    const tocList = document.getElementById('tocList');
+    const headings = $$('article h2, article h3');
+    const makeId = (el) => el.id || (el.id = el.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-'));
+    headings.forEach(h => { makeId(h); });
+    const tocItems = headings.map(h => {
+      const li = document.createElement('li');
+      li.style.marginLeft = h.tagName === 'H3' ? '1rem' : '0';
+      const a = document.createElement('a');
+      a.href = `#${h.id}`; a.textContent = h.textContent;
+      li.appendChild(a); tocList.appendChild(li); return a;
+    });
+    const activate = (id) => {
+      tocItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+    };
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) activate(entry.target.id); });
+    }, { rootMargin: '0px 0px -70% 0px', threshold: 0.01 });
+    headings.forEach(h => obs.observe(h));
+
+    // Copy buttons for code blocks (skip inside callouts; contain within pre)
+    $$('pre:not(.no-copy)').forEach(pre => {
+      if (pre.closest('.callout')) return;
+      // Wrap the <pre> to contain the absolute-positioned button
+      const wrap = document.createElement('div');
+      wrap.className = 'pre-wrap';
+      pre.parentNode.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.type = 'button';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(pre.innerText);
+          const prev = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => (btn.textContent = prev), 1200);
+        } catch {
+          btn.textContent = 'Error';
+        }
+      });
+      wrap.appendChild(btn);
+    });
+
+    // Sidebar active link highlighting
+    const updateActive = () => {
+      const pos = window.scrollY + 120;
+      $$('.nav a[href^="#"]').forEach(a => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (!el) return;
+        const top = el.offsetTop; const bottom = top + el.offsetHeight;
+        a.classList.toggle('active', pos >= top && pos < bottom);
+      });
+    };
+    document.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // Version selector hook (replace with real logic)
+    document.getElementById('versionSelect').addEventListener('change', (e) => {
+      const version = e.target.value; // TODO: Navigate to versioned docs root
+      console.log('Switch to version:', version);
+    });
+  </script>
+
+  <script>
+    // ==== Terrarium pixel logo renderer ====
+    (function drawLogo() {
+      const svg = document.getElementById('terrariumLogo');
+      if (!svg) return;
+
+      const ps = 3; // pixel size (scale logo by changing this)
+
+      // Palette
+      const forestGreen = '#228B22';
+      const darkGreen   = '#1a6b1a';
+      const darkerGreen = '#0f4d0f';
+      const lightGreen  = '#2ea02e';
+
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const fg  = isDark ? '#2fb42f' : forestGreen;
+      const dg  = isDark ? '#238c23' : darkGreen;
+      const ddg = isDark ? '#165f16' : darkerGreen;
+      const lg  = isDark ? '#59d459' : lightGreen;
+
+      const letters = {
+        T: [[1,1,1,1,1,1,1],[1,1,1,1,1,1,1],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0]],
+        E: [[1,1,1,1,1,1,1],[1,1,1,1,1,1,1],[1,1,0,0,0,0,0],[1,1,1,1,1,1,0],[1,1,0,0,0,0,0],[1,1,1,1,1,1,1],[1,1,1,1,1,1,1]],
+        R: [[1,1,1,1,1,1,0],[1,1,1,1,1,1,1],[1,1,0,0,0,1,1],[1,1,1,1,1,1,0],[1,1,0,0,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1]],
+        A: [[0,0,1,1,1,0,0],[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,1,1,1,1,1],[1,1,1,1,1,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1]],
+        I: [[1,1,1,1,1,1,1],[1,1,1,1,1,1,1],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[1,1,1,1,1,1,1],[1,1,1,1,1,1,1]],
+        U: [[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,1,1,1,1,1],[0,1,1,1,1,1,0]],
+        M: [[1,1,0,0,0,1,1],[1,1,1,0,1,1,1],[1,1,1,1,1,1,1],[1,1,0,1,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1]]
+      };
+
+      const word = 'TERRARIUM';
+      const letterSpacing = 1;
+      const top = 8;
+      const startX = 4;
+
+      const totalWidth = word.length * ((7 + letterSpacing) * ps);
+      const height = (7 * ps) + 6;
+
+      svg.setAttribute('viewBox', `0 0 ${totalWidth + startX * 2} ${Math.max(height + top*2, 40)}`);
+      svg.setAttribute('preserveAspectRatio', 'xMinYMid meet');
+
+      let html = '';
+      for (let i = 0; i < word.length; i++) {
+        const letter = letters[word[i]];
+        const xOffset = startX + i * (7 + letterSpacing) * ps;
+
+        for (let row = 0; row < 7; row++) {
+          for (let col = 0; col < 7; col++) {
+            if (!letter[row][col]) continue;
+            const px = xOffset + col * ps;
+            const py = top + row * ps;
+
+            html += `<rect x="${px + 4}" y="${py + 4}" width="${ps}" height="${ps}" fill="${ddg}"></rect>`;
+            html += `<rect x="${px + 3}" y="${py + 3}" width="${ps}" height="${ps}" fill="${dg}"></rect>`;
+            html += `<rect x="${px + 2}" y="${py + 2}" width="${ps}" height="${ps}" fill="${dg}" opacity="0.7"></rect>`;
+
+            html += `<rect x="${px}" y="${py}" width="${ps}" height="${ps}" fill="${fg}"></rect>`;
+            html += `<rect x="${px}" y="${py}" width="${ps/3}" height="${ps/3}" fill="${lg}" opacity="0.6"></rect>`;
+          }
+        }
+      }
+      svg.innerHTML = html;
+
+      // Re-render on theme toggle for contrast
+      document.getElementById('themeBtn')?.addEventListener('click', () => {
+        // Redraw after data-theme flips
+        requestAnimationFrame(drawLogo);
+      });
+    })();
+  </script>
+</body>
+</html>
