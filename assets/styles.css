@@ -72,6 +72,14 @@ section { scroll-margin-top: 72px; }
 /* --- Hero -------------------------------------------------------------- */
 .hero { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; margin: 28px 0 10px; }
 .avatar { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; box-shadow: var(--shadow); }
+.avatar-fallback {
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, var(--card), color-mix(in oklab, var(--link), white 70%));
+  border: 1px solid var(--line);
+}
 .tagline { margin-top: .2rem; color: var(--muted); }
 .meta { margin-top: .5rem; display: flex; gap: 8px; flex-wrap: wrap; }
 .chip {

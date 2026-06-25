@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>YourFramework Docs</title>
-  <meta name="description" content="Documentation for YourFramework" />
+  <title>Terrarium Docs</title>
+  <meta name="description" content="Documentation for Terrarium " />
   <link rel="icon" href="/favicon.ico" />
   <style>
     /* === CSS Variables & Theme === */
@@ -129,8 +129,10 @@
     .content h1 { font-size: 2rem; margin: .5rem 0 1rem; }
     .content h2 { margin-top: 2rem; }
     .content table { width: 100%; border-collapse: collapse; }
-    .content th, .content td { border: 1px solid var(--border); padding: .5rem .6rem; }
+    .content th, .content td { border: 1px solid var(--border); padding: .5rem .6rem; white-space: normal; word-break: break-word; }
     .content blockquote { border-left: 3px solid var(--border); margin: 1rem 0; padding: .25rem .75rem; color: var(--muted); }
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    .table-wrap table { width: 100%; min-width: 560px; }
 
     .toc {
       position: sticky; top: 4.5rem; align-self: start; height: max-content;
@@ -244,8 +246,9 @@
   <div class="layout">
     <!-- Topbar -->
     <header class="topbar" role="banner">
-     
-      <div class="brand" aria-label="Site home">
+      <button class="icon-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <div class="brand" aria-label="Terrarium documentation home">
         <svg id="terrariumLogo" width="260" height="40" role="img" aria-label="Terrarium logo"></svg>
       </div>
 
@@ -258,54 +261,78 @@
 
       <div class="actions">
         <button class="btn" id="themeBtn" aria-label="Toggle theme">🌙 Theme</button>
-        <a class="btn" href="https://github.com/yourorg/yourframework" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://github.com/umass-aisec/Terrarium" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </header>
 
     <!-- Sidebar -->
     <aside id="sidebar" class="sidebar" aria-label="Primary navigation">
-      <div class="section-title">Getting Started</div>
+      <div class="section-title">Overview</div>
       <ul class="nav">
-        <li><a class="active" href="#">Introduction</a></li>
+        <li><a class="active" href="#introduction">Introduction</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#quickstart">Quickstart</a></li>
+        <li><a href="#project-features">Feature Highlights</a></li>
       </ul>
 
-      <div class="section-title">Guides</div>
+      <div class="section-title">Architecture</div>
       <ul class="nav">
-        <li>
-          <details open>
-            <summary>Core Concepts</summary>
-            <div class="tree">
-              <a href="#concepts-architecture">Architecture</a>
-              <a href="#concepts-lifecycle">Lifecycle</a>
-              <a href="#concepts-config">Configuration</a>
-            </div>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary>Advanced</summary>
-            <div class="tree">
-              <a href="#advanced-performance">Performance</a>
-              <a href="#advanced-plugins">Plugins</a>
-              <a href="#advanced-testing">Testing</a>
-            </div>
-          </details>
-        </li>
+        <li><a href="#architecture-overview">System Overview</a></li>
+        <li><a href="#architecture-communication">Communication Protocol</a></li>
+        <li><a href="#architecture-agents">Agents & Tool Use</a></li>
+        <li><a href="#architecture-blackboard">Blackboards & MCP</a></li>
+        <li><a href="#architecture-logging">Observability</a></li>
       </ul>
 
-      <div class="section-title">API Reference</div>
+      <div class="section-title">Environments</div>
       <ul class="nav">
-        <li><a href="#api-module-a">Module A</a></li>
-        <li><a href="#api-module-b">Module B</a></li>
+        <li><a href="#environments">Environment Catalog</a></li>
+        <li><a href="#env-dcop">DCOP Suite</a></li>
+        <li><a href="#env-negotiation">Negotiation Sandbox</a></li>
+        <li><a href="#env-data">Data Assets</a></li>
       </ul>
 
-      <div class="section-title">Resources</div>
+      <div class="section-title">Operations</div>
       <ul class="nav">
-        <li><a href="#changelog">Changelog</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#community">Community</a></li>
+        <li><a href="#operations">Operations Checklist</a></li>
+        <li><a href="#operations-running">Running Simulations</a></li>
+        <li><a href="#operations-config">Configuration & Seeds</a></li>
+        <li><a href="#operations-examples">Examples</a></li>
+      </ul>
+
+      <div class="section-title">Experiments</div>
+      <ul class="nav">
+        <li><a href="#attack-overview">Attack Overview</a></li>
+        <li><a href="#attack-agent">Agent Poisoning</a></li>
+        <li><a href="#attack-context">Context Overflow</a></li>
+        <li><a href="#attack-protocol">Protocol Poisoning</a></li>
+        <li><a href="#attack-extending">Building New Attacks</a></li>
+      </ul>
+
+      <div class="section-title">Tooling</div>
+      <ul class="nav">
+        <li><a href="#tooling">LLM & MCP Infrastructure</a></li>
+        <li><a href="#tooling-llm">LLM Server</a></li>
+        <li><a href="#tooling-mcp">Tool Discovery</a></li>
+        <li><a href="#tooling-notes">Model Notes</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+      </ul>
+
+      <div class="section-title">Reference</div>
+      <ul class="nav">
+        <li><a href="#modules">Code Map</a></li>
+        <li><a href="#modules-src">Core Modules</a></li>
+        <li><a href="#modules-envs">Environment Modules</a></li>
+        <li><a href="#modules-examples">Experiment Scripts</a></li>
+        <li><a href="#dependencies">Dependencies</a></li>
+      </ul>
+
+      <div class="section-title">Research</div>
+      <ul class="nav">
+        <li><a href="#research-context">Research Context</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#citation">Citation</a></li>
+        <li><a href="#license">License</a></li>
       </ul>
     </aside>
     <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
@@ -314,105 +341,488 @@
     <main class="main" id="content">
       <article class="content" aria-label="Documentation article">
         <header class="breadcrumbs" aria-label="Breadcrumb">
-          Home / Docs / Getting Started / <strong>Introduction</strong>
+          Home / Docs / <strong>Terrarium</strong>
         </header>
 
-        <h1>Terrarium: Revisiting the Blackboard for Multi-Agent Safety, Privacy, and Security Studies</h1>
+        <h1 id="introduction">Terrarium Framework Documentation</h1>
         <p>
-          Terrarium allows researchers to study potential safety, privacy, and security risks that can occur when deploying multi-agent systems. The framework utilizes a blackboard design to create a modular and configurable testbed that enables agents to collaborate. This modular design allows researchers to study different attack surfaces and attack vectors by providing fine-grained control over various aspects of the interaction, such as persistent storage and communication protocols.
+          Terrarium is a modular playground for studying decentralized, LLM-driven multi-agent systems under safety, privacy, and security stressors. The framework revives the blackboard architecture to coordinate agents, isolates attack surfaces, and provides repeatable evaluations across a suite of collaborative environments.
         </p>
 
-        <!-- <blockquote>
-          Tip: Replace placeholder links, logo, and navigation with your content. The
-          JS at the bottom includes hooks for search, versioning, and theme persistence.
-        </blockquote> -->
-
-        <h2 id="installation">Installation</h2>
-        <p>Install using your preferred package manager:</p>
-        <pre><code class="language-bash"># Clone Repository
-git clone https://github.com/umass-aisec/Terrarium
-cd terrarium
-
-# Install Dependancies
-pip install -r requirements.txt
-
-# or pip (example)
-pip install yourframework</code></pre>
-
         <div class="callout important">
-          <div class="callout-icon">💬</div>
+          <div class="callout-icon">🌱</div>
           <div class="callout-content">
-            <strong>Important</strong><br>
-            Warning that we need <a href="#">OpenAI account</a>.
-            
-            (<a href="#">check your balance</a>).
+            <strong>Active development</strong><br>
+            Terrarium is evolving rapidly. Raise issues for gaps, star the project if it helps your work, and treat every config as subject to change.
           </div>
         </div>
 
-        <h2 id="quickstart">Quickstart</h2>
-        <ol>
-          <li>Set environment keys</li>
-          <li>Import and configure YourFramework</li>
-          <li>Start the dev server</li>
-        </ol>
-
-        <pre><code class="language-bash"># Clone Repository
-git clone https://github.com/umass-aisec/Terrarium
+        <h2 id="installation">Installation</h2>
+        <p>
+          Set up Terrarium locally with a dedicated environment before running simulations.
+        </p>
+        <pre><code class="language-bash"># Clone the Terrarium repository
+git clone &lt;repository-url&gt;
 cd terrarium
 
-# Install Dependancies
-pip install -r requirements.txt
+# Create and activate a dedicated environment (recommended)
+conda create --name terrarium python=3.11
+conda activate terrarium
 
-# or pip (example)
-pip install yourframework</code></pre>
+# Install Terrarium in editable mode
+uv pip install -e .</code></pre>
+        <p>
+          Store provider credentials in <code>.env</code> at the project root:
+        </p>
+        <pre><code class="language-bash">OPENAI_API_KEY=&lt;your_key&gt;
+GOOGLE_API_KEY=&lt;your_key&gt;
+ANTHROPIC_API_KEY=&lt;your_key&gt;</code></pre>
 
-        <h2 id="concepts-architecture">Architecture</h2>
-        <p>Describe your framework's high-level architecture here.</p>
+        <h2 id="quickstart">Quickstart</h2>
+        <p>
+          Run the minimal MeetingScheduling simulation with two terminals. 
+        </p>
+        <ol>
+          <li>
+            <strong>Terminal A – start the MCP server</strong>
+            <pre><code class="language-bash"># Terminal A
+python src/server.py</code></pre>
+            <p>The server exposes blackboard and environment tools at <code>http://localhost:8000/mcp</code>. Keep it running.</p>
+          </li>
+          <li>
+            <strong>Terminal B – launch an example run</strong>
+            <pre><code class="language-bash"># Terminal B
+python examples/base/main.py --config examples/configs/meeting_scheduling.yaml</code></pre>
+            <p>This script spins up agents, connects to the MCP server, and executes the two-phase protocol for the MeetingScheduling DCOP instance.</p>
+          </li>
+          <li>
+            <strong>Inspect outputs</strong>
+            <p>Progress bars appear in Terminal B. Logs and plots are written under <code>logs/MeetingScheduling/&lt;tag&gt;_&lt;model&gt;/seed_&lt;n&gt;/</code> and <code>plots/</code>.</p>
+          </li>
+        </ol>
+        <p>Turn to the Operations section for environment setup, configuration details, and additional examples.</p>
 
-        <h2 id="concepts-lifecycle">Lifecycle</h2>
-        <p>Explain the lifecycle of components or apps built with YourFramework.</p>
-
-        <h2 id="concepts-config">Configuration</h2>
-        <table>
-          <thead>
-            <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>port</td><td>number</td><td>3000</td><td>Dev server port</td></tr>
-            <tr><td>verbose</td><td>boolean</td><td>false</td><td>Enable detailed logging</td></tr>
-          </tbody>
-        </table>
-
-        <h2 id="advanced-performance">Performance</h2>
-        <p>Guidance on profiling, caching, and tuning.</p>
-
-        <h2 id="advanced-plugins">Plugins</h2>
-        <p>How to write and distribute plugins.</p>
-
-        <h2 id="advanced-testing">Testing</h2>
-        <p>Testing strategies and examples.</p>
-
-        <h2 id="api-module-a">API: Module A</h2>
-        <p>Document functions, classes, and types.</p>
-
-        <h2 id="api-module-b">API: Module B</h2>
-        <p>Document functions, classes, and types.</p>
-
-        <h2 id="changelog">Changelog</h2>
+        <h2 id="project-features">Feature Highlights</h2>
         <ul>
-          <li><strong>v1.2</strong> — 2025-10-01: Added widgets and performance improvements.</li>
-          <li><strong>v1.1</strong> — 2025-06-18: New plugin interface.</li>
+          <li><strong>Blackboards as communication proxies</strong>: append-only logs mediate agent conversations and tool calls.</li>
+          <li><strong>Two-phase protocol</strong>: plan collaboratively, then execute environment actions in an ordered sequence.</li>
+          <li><strong>MCP-based tooling</strong>: environment APIs are exposed through FastMCP for portable integration with different LLM clients.</li>
+          <li><strong>DCOP evaluation suite</strong>: SmartGrid, MeetingScheduling, and PersonalAssistant domains inherit ground-truth utilities from CoLLAB.</li>
+          <li><strong>Attack scenarios</strong>: reference implementations of agent- and protocol-level poisoning attacks support adversarial testing.</li>
+          <li><strong>Comprehensive logging</strong>: prompts, trajectories, tool calls, and blackboard states are persisted per environment/seed.</li>
         </ul>
 
-        <h2 id="faq">FAQ</h2>
-        <p>Answer common questions here.</p>
+        <h2 id="architecture-overview">Architecture Overview</h2>
+        <p>
+          Terrarium wraps the classic blackboard MAS design around contemporary LLM tooling. Agents interact through blackboards, coordinate via the communication protocol, and execute safe environment actions exposed by MCP servers. The figure below depicts the flow.
+        </p>
+        <figure>
+          <img src="static/images/framework.png" alt="Terrarium framework overview diagram" />
+          <figcaption>High-level Terrarium architecture showing agents, blackboards, MCP server, and environments.</figcaption>
+        </figure>
 
-        <h2 id="community">Community</h2>
-        <p>Links to discussions, Discord, and contributing guide.</p>
+        <h3 id="architecture-communication">Communication Protocol</h3>
+        <p>
+          <code>src/communication_protocol.py</code> orchestrates simulations. It enforces per-iteration planning/execution phases, retrieves blackboard context, mediates tool calls through MCP, and records state via <code>BlackboardLogger</code>. Environment state can be serialized (<code>get_serializable_state</code>) before tool execution, allowing remote MCP tools to mutate the environment deterministically.
+        </p>
+
+        <h3 id="architecture-agents">Agents &amp; Tool Use</h3>
+        <p>
+          <code>src/agent.py</code> defines LLM-driven agents that:
+        </p>
+        <ul>
+          <li>Load provider-specific clients via <code>llm_server.clients</code>.</li>
+          <li>Dynamically discover allowed tools through <code>ToolsetDiscovery</code> based on environment and phase.</li>
+          <li>Record tool usage (<code>ToolCallLogger</code>) and reasoning trajectories (<code>AgentTrajectoryLogger</code>).</li>
+          <li>Support adversarial hooks by overriding tool execution (see <code>attack_module/</code>).</li>
+        </ul>
+
+        <h3 id="architecture-blackboard">Blackboards &amp; MCP Integration</h3>
+        <p>
+          Shared communication lives in <code>src/blackboard.py</code> with a <code>Megaboard</code> manager for multiple factor-specific boards. <code>src/server.py</code> exposes Megaboard operations and environment tools as FastMCP endpoints. Environment-specific tool wrappers (for SmartGrid, MeetingScheduling, PersonalAssistant) are loaded dynamically through <code>initialize_environment_tools</code>.
+        </p>
+
+        <h3 id="architecture-logging">Observability</h3>
+        <p>
+          <code>src/logger.py</code> centralizes logging utilities:
+        </p>
+        <ul>
+          <li><code>BlackboardLogger</code> snapshots every board after agent turns, storing structured logs under <code>logs/&lt;env&gt;/&lt;tag_model&gt;/seed_x/</code>.</li>
+          <li><code>ToolCallLogger</code> records timing, arguments, and results of each tool invocation.</li>
+          <li><code>PromptLogger</code> preserves system/user prompts in JSON and Markdown.</li>
+          <li><code>AgentTrajectoryLogger</code> captures intermediate reasoning traces for later inspection.</li>
+        </ul>
+
+        <h2 id="environments">Environment Catalog</h2>
+        <p>
+          Terrarium ships both DCOP and negotiation environments. All inherit the abstract interface defined in <code>envs/abstract_environment.py</code>, which standardizes agent context construction, logging, and lifecycle hooks. Plotting helpers in <code>envs/plotting_utils.py</code> and <code>envs/dcops/plotter.py</code> ensure consistent visualization across tasks.
+        </p>
+
+        <h3 id="env-dcop">DCOP Suite</h3>
+        <ul>
+          <li><strong>MeetingScheduling</strong> (<code>envs/dcops/meeting_scheduling/</code>): adapts CoLLAB data to coordinate meeting owners using factor-induced blackboards. Prompts are curated in <code>meeting_scheduling_prompts.py</code>, and score plotting uses <code>ScorePlotter</code>.</li>
+          <li><strong>SmartGrid</strong> (<code>envs/dcops/smart_grid/</code>): schedules appliance usage to balance household utility and grid capacity. Tool discovery/definitions live alongside environment prompts.</li>
+          <li><strong>PersonalAssistant</strong> (CoLLAB adaptor under <code>envs/dcops/CoLLAB/PersonalAssistant/</code>): selects outfits respecting user preferences and social norms.</li>
+        </ul>
+        <p>
+          Each DCOP environment enforces <code>max_iterations = 1</code> and injects the run seed into both environment state and logging directories through <code>clear_seed_directories</code>.
+        </p>
+
+        <h3 id="env-negotiation">Negotiation Sandbox</h3>
+        <p>
+          <code>envs/negotiation/trading/</code> implements a stochastic trading game where agents negotiate trades, manage inventories, and post to randomly created factor blackboards. The environment integrates:
+        </p>
+        <ul>
+          <li><code>Store</code> and <code>TradeManager</code> for inventory and deal execution.</li>
+          <li>Utility and budget tracking visualized through <code>UtilityPlotter</code>.</li>
+          <li>Prompt templates under <code>prompts/</code> to guide agent conversations.</li>
+        </ul>
+
+        <h3 id="env-data">Data Assets</h3>
+        <p>
+          Static datasets and generators from CoLLAB reside under <code>envs/dcops/CoLLAB/</code>. Scripts such as <code>generate.py</code>, <code>make_benchmark.py</code>, and <code>prompt_maker.py</code> reproduce benchmark instances for MeetingScheduling, PersonalAssistant, and SmartGrid. Trading environment fixtures live in <code>trading/items.json</code> and <code>trades.jsonl</code>.
+        </p>
+
+        <h2 id="operations">Operations Checklist</h2>
+        <p>
+          Running Terrarium requires Python 3.11+, provider API keys, and an MCP server for tool execution. After installing the project with the steps above, use the guidance below to launch simulations and manage configuration.
+        </p>
+
+        <h3 id="operations-running">Running Simulations</h3>
+        <ol>
+          <li>Start the MCP server: <code>python src/server.py</code>.</li>
+          <li>Launch an example (e.g., MeetingScheduling):<br>
+            <code>python examples/base/main.py --config examples/configs/meeting_scheduling.yaml</code>
+          </li>
+          <li>Inspect logs under <code>logs/&lt;env&gt;/&lt;tag_model&gt;/seed_x/</code> and plots under <code>plots/</code>.</li>
+        </ol>
+
+        <h3 id="operations-config">Configuration &amp; Seeds</h3>
+        <ul>
+          <li><code>src/utils.py</code> validates YAML configs (<code>simulation</code>, <code>environment</code>, <code>llm</code> sections) and ensures DCOP runs use a single iteration.</li>
+          <li><code>seeds.txt</code> lists curated seeds (100 values) for reproducible studies.</li>
+          <li><code>prepare_simulation_config</code> injects the active seed across environment settings.</li>
+        </ul>
+
+        <h3 id="operations-examples">Examples</h3>
+        <p>
+          Representative entry points live in <code>examples/</code>:
+        </p>
+        <ul>
+          <li><code>examples/base/main.py</code>: canonical simulation loop with progress meters.</li>
+          <li><code>examples/agent_poisoning/main.py</code>: runs with the <code>AgentPoisoningAttack</code> subclass.</li>
+          <li><code>examples/communication_protocol_poisoning/main.py</code>: seeds the communication protocol poisoning attack.</li>
+          <li>Environment configs under <code>examples/configs/</code> cover SmartGrid, MeetingScheduling, and PersonalAssistant.</li>
+        </ul>
+
+        <h2 id="attack-overview">Attack Scenarios</h2>
+        <p>
+          Terrarium ships three reference attacks demonstrating how to compromise different parts of the stack. Implementations live in <code>attack_module/attack_modules.py</code> and can be activated from the example runners without modifying core code.
+        </p>
+        <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Attack</th><th>Target</th><th>Entry point</th><th>Payload config</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Agent poisoning</td>
+              <td>Rewrites each agent <code>post_message</code> payload before it hits the blackboard.</td>
+              <td><code>examples/attacks/main.py --attack_type agent_poisoning</code></td>
+              <td><code>examples/configs/attack_config.yaml</code> (<code>poisoning_string</code>)</td>
+            </tr>
+            <tr>
+              <td>Context overflow</td>
+              <td>Appends large filler blocks to exhaust downstream context windows.</td>
+              <td><code>examples/attacks/main.py --attack_type context_overflow</code></td>
+              <td><code>examples/configs/attack_config.yaml</code> (<code>header</code>, <code>filler_token</code>, <code>repeat</code>, <code>max_chars</code>)</td>
+            </tr>
+            <tr>
+              <td>Communication protocol poisoning</td>
+              <td>Injects malicious system messages into every blackboard via the MCP proxy.</td>
+              <td><code>examples/communication_protocol_poisoning/main.py</code></td>
+              <td><code>examples/configs/attack_config.yaml</code> (<code>poisoning_string</code>)</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 id="attack-agent">Agent Poisoning</h3>
+        <p>
+          <code>AgentPoisoningAttack</code> subclasses the base <code>Agent</code> from <code>src/agent.py</code>, overrides <code>_execute_tool_call</code>, and swaps the outgoing message with the payload defined in <code>examples/configs/attack_config.yaml</code> before delegating to the parent implementation. Run it via:
+        </p>
+        <pre><code class="language-bash">python examples/attacks/main.py \
+  --config examples/configs/meeting_scheduling.yaml \
+  --poison_payload examples/configs/attack_config.yaml \
+  --attack_type agent_poisoning</code></pre>
+        <p>
+          Ensure the MCP server (<code>python src/server.py</code>) is running; the example will replace every standard agent with <code>AgentPoisoningAttack</code> and log injected payload metadata alongside tool calls.
+        </p>
+
+        <h3 id="attack-context">Context Overflow</h3>
+        <p>
+          <code>ContextOverflowAttack</code> inherits from <code>Agent</code>, appending configurable filler tokens after the original message to stress the receiver’s context window. The same driver runs this variant:
+        </p>
+        <pre><code class="language-bash">python examples/attacks/main.py \
+  --config examples/configs/meeting_scheduling.yaml \
+  --poison_payload examples/configs/attack_config.yaml \
+  --attack_type context_overflow</code></pre>
+        <p>
+          Adjust <code>header</code>, <code>filler_token</code>, <code>repeat</code>, or <code>max_chars</code> in <code>examples/configs/attack_config.yaml</code> to scale the overflow without touching code.
+        </p>
+
+        <h3 id="attack-protocol">Protocol Poisoning</h3>
+        <p>
+          <code>CommunicationProtocolPoisoningAttack</code> operates at the coordination layer by calling <code>post_system_message</code> for every blackboard returned by <code>get_all_blackboard_ids()</code>. This simulates a compromised communication proxy:
+        </p>
+        <pre><code class="language-bash">python examples/communication_protocol_poisoning/main.py \
+  --config examples/configs/meeting_scheduling.yaml</code></pre>
+        <p>
+          Edit <code>examples/configs/attack_config.yaml</code> to change the injected message; the helper reads <code>poisoning_string</code> from that file before each phase. The script records every injection in <code>attack_events.jsonl</code> and <code>attack_summary.json</code>, which feed directly into the dashboard analytics.
+        </p>
+
+        <h3 id="attack-extending">Building New Attacks</h3>
+        <p>
+          Terrarium’s components are designed for subclassing. You can target specific layers by inheriting from the corresponding base class and overriding the narrow hook that controls the behavior you want to perturb.
+        </p>
+
+        <h4>Agent-level template</h4>
+        <p>
+          Start from <code>src/agent.Agent</code>. Override <code>_execute_tool_call</code> (like <code>AgentPoisoningAttack</code>) or <code>generate_response</code> to intercept prompts. Example skeleton:
+        </p>
+<pre><code class="language-python">from src.agent import Agent
+
+class CustomAgentAttack(Agent):
+    def __init__(self, *args, poison_payload: str, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.poison_payload = poison_payload
+
+    async def _execute_tool_call(self, tool_name, arguments):
+        if tool_name == "post_message":
+            arguments = dict(arguments or {})
+            arguments["message"] = self._rewrite(arguments.get("message", ""))
+        return await super()._execute_tool_call(tool_name, arguments)
+
+    def _rewrite(self, original: str) -> str:
+        return f"{self.poison_payload}\n\n{original}"</code></pre>
+        <p>
+          Register the new class in <code>examples/attacks/main.py</code> by swapping it in for selected agents based on CLI flags or config entries.
+        </p>
+
+        <h4>Protocol-level template</h4>
+        <p>
+          Wrap <code>src/communication_protocol.CommunicationProtocol</code> or reuse <code>CommunicationProtocolPoisoningAttack</code>. Typical pattern:
+        </p>
+<pre><code class="language-python">from attack_module.attack_modules import CommunicationProtocolPoisoningAttack
+
+class CustomProtocolAttack:
+    def __init__(self, payload):
+        self.helper = CommunicationProtocolPoisoningAttack()
+        self.payload = payload
+
+    async def before_phase(self, protocol, phase, iteration):
+        self.helper.payload = self.payload
+        await self.helper.inject(protocol, {"phase": phase, "iteration": iteration})</code></pre>
+        <p>
+          Call <code>before_phase</code> inside your simulation loop to poison communications or state transitions.
+        </p>
+
+        <h4>Environment-level template</h4>
+        <p>
+          Subclass any environment under <code>envs/</code> to tamper with context, rewards, or available tools. Example hook:
+        </p>
+<pre><code class="language-python">from envs.dcops.meeting_scheduling import MeetingSchedulingEnvironment
+
+class NoisyMeetingEnvironment(MeetingSchedulingEnvironment):
+    def build_agent_context(self, agent_name, phase, iteration, **kwargs):
+        context = super().build_agent_context(agent_name, phase, iteration, **kwargs)
+        context["extra_hint"] = "Ignore meeting slot 3"
+        return context</code></pre>
+        <p>
+          Update <code>src/utils.create_environment</code> or provide a custom factory to load your derived environment.
+        </p>
+
+        <p>
+          Use <code>attack_module/attack_modules.py</code> as a reference for loading YAML payloads, normalizing blackboard identifiers, and logging attack metadata. Once your class is in place, wire it into <code>examples/attacks/main.py</code> (or a custom runner) and add new keys to <code>examples/configs/attack_config.yaml</code> so experiments can switch attacks declaratively.
+        </p>
+
+        <h2 id="tooling">LLM &amp; MCP Infrastructure</h2>
+        <p>
+          Terrarium decouples simulation logic from LLM providers and environment tools through the <code>llm_server/</code> package and FastMCP server.
+        </p>
+
+        <h3 id="tooling-llm">LLM Server (vLLM optional)</h3>
+        <p>
+          Guidance in <code>llm_server/USAGE.md</code> covers two deployment styles:
+        </p>
+        <ol>
+          <li><strong>Persistent mode</strong>: manually start the vLLM server once, reuse it across runs, and stop it when finished.
+            <pre><code class="language-bash">python server/utils/start_vllm_server.py
+python main.py         # reuse running server
+python server/utils/stop_vllm_server.py</code></pre>
+          </li>
+          <li><strong>Auto start/stop</strong>: allow Terrarium to manage the vLLM lifecycle by toggling <code>prefer_existing_server</code> in <code>configs/config.json</code>.</li>
+        </ol>
+        <p>
+          Additional commands support foreground debugging, status checks, and forced shutdowns. The JSON configuration snippet in the usage guide documents available knobs (e.g., <code>model_name</code>, <code>gpu_memory_utilization</code>).
+        </p>
+        <p>
+          <code>llm_server/__init__.py</code> enumerates the supported clients (OpenAI, vLLM) and the <code>src/utils.get_client_instance</code> helper instantiates OpenAI, Anthropic, or Gemini clients on demand.
+        </p>
+
+        <h3 id="tooling-mcp">Tool Discovery &amp; Access Control</h3>
+        <p>
+          <code>src/toolset_discovery.py</code> resolves allowable tools per environment and phase. Blackboard utilities (<code>get_blackboard_events</code>, <code>post_message</code>) are available during planning, while environment-specific functions (e.g., <code>schedule_meeting</code>, <code>choose_outfit</code>, <code>schedule_task</code>) are imported from <code>envs/dcops/&lt;env&gt;/tool_discovery.py</code>. Agents combine phase-aware toolsets with MCP endpoints to ensure actions stay within policy.
+        </p>
+
+        <h3 id="tooling-notes">Model Notes</h3>
+        <p>
+          The quick notes in <code>dev/NOTES.md</code> highlight empirical guidance:</p>
+        <ul>
+          <li>GPT-5 is too slow for tool-heavy interactions—prefer GPT-4.1 variants.</li>
+          <li><code>gpt-4.1-nano</code> underperforms on tool usage; <code>gpt-4.1-mini</code> is the recommended lightweight option.</li>
+        </ul>
+
+        <h2 id="dashboard">Dashboard (Experimental)</h2>
+        <p>
+          The <code>dashboards/</code> package ships a static React UI that visualizes simulation runs, attack telemetry, and raw logs without requiring a backend service.
+        </p>
+
+        <h3>What it provides</h3>
+        <ul>
+          <li><strong>Run browser</strong>: cards for every <code>logs/&lt;env&gt;/&lt;tag_model&gt;/&lt;run_timestamp&gt;/seed_*</code> directory with seed metadata, score history, and attack counts.</li>
+          <li><strong>Attack analytics</strong>: success/failure charts aggregated from <code>attack_summary.json</code>.</li>
+          <li><strong>Embedded log viewers</strong>: quick previews of blackboard transcripts, tool calls, prompts, trajectories, and <code>attack_events.jsonl</code>.</li>
+          <li><strong>Config snapshot</strong>: the embedded YAML configuration appears in the header for provenance.</li>
+        </ul>
+
+        <h3>Build the data bundle</h3>
+        <pre><code class="language-bash">python dashboards/build_data.py \
+  --logs-root logs \
+  --config examples/configs/meeting_scheduling.yaml \
+  --output dashboards/public/dashboard_data.json</code></pre>
+        <p>
+          Use <code>--logs-root</code> to target a specific log tree, optionally embed a config with <code>--config</code>, and choose an output location (defaults to the shipping bundle).
+        </p>
+
+        <h3>Serve the dashboard</h3>
+        <pre><code class="language-bash">python -m http.server 5050 --directory dashboards/public</code></pre>
+        <p>
+          Visit <a href="http://127.0.0.1:5050" target="_blank" rel="noopener">http://127.0.0.1:5050</a> (or open <code>index.html</code> directly if your browser permits <code>file://</code> fetch requests). Re-run the build step whenever new runs are produced and simply refresh the page—no restart required. To customize the UI, start from <code>dashboards/templates/index.html</code> and regenerate <code>public/index.html</code>.
+        </p>
+
+        <h2 id="modules">Code Map</h2>
+        <p>
+          The table below outlines primary directories and responsibilities.
+        </p>
+        <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Path</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>src/</code></td><td>Core orchestration: agents, communication protocol, blackboards, logging, utilities.</td></tr>
+            <tr><td><code>envs/</code></td><td>Environment implementations, plotters, and CoLLAB data generators.</td></tr>
+            <tr><td><code>llm_server/</code></td><td>Provider clients and vLLM server management docs.</td></tr>
+            <tr><td><code>attack_module/</code></td><td>Reference poisoning attacks and configs.</td></tr>
+            <tr><td><code>examples/</code></td><td>Runnable scripts and YAML configs for experiments.</td></tr>
+            <tr><td><code>dev/</code></td><td>Logos and diagrams (<code>terrarium_logo*.png</code>, <code>framework.png</code>), plus prototype HTML.</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3 id="modules-src">Core Modules</h3>
+        <ul>
+          <li><code>communication_protocol.py</code>: async orchestration, MCP bridging, environment state syncing.</li>
+          <li><code>agent.py</code>: base LLM agent with tool execution, attack hooks, and prompt generation.</li>
+          <li><code>blackboard.py</code>: Megaboard management, event posting, and context summarization.</li>
+          <li><code>logger.py</code>: detailed telemetry for blackboards, prompts, tool calls, and trajectories.</li>
+          <li><code>server.py</code>: FastMCP server exposing blackboard and environment tool endpoints.</li>
+          <li><code>utils.py</code>: config loading, seed management, environment factory, LLM client helpers.</li>
+        </ul>
+
+        <h3 id="modules-envs">Environment Modules</h3>
+        <ul>
+          <li><code>envs/dcops/meeting_scheduling/</code>: adaptor, prompts, tool discovery, and factor-based board generation.</li>
+          <li><code>envs/dcops/smart_grid/</code>: smart grid scheduling logic, prompts, and tools.</li>
+          <li><code>envs/dcops/personal_assistant/</code>: outfit selection environment (imports from CoLLAB).</li>
+          <li><code>envs/negotiation/trading/</code>: trading store, agent creation, prompts, and logging integration.</li>
+        </ul>
+
+        <h3 id="modules-examples">Experiment Scripts</h3>
+        <p>
+          Each script demonstrates a distinct experimental setup:
+        </p>
+        <ul>
+          <li><code>examples/base/main.py</code>: defaults to standard agents and protocols.</li>
+          <li><code>examples/agent_poisoning/main.py</code>: imports <code>AgentPoisoningAttack</code> for adversarial runs.</li>
+          <li><code>examples/communication_protocol_poisoning/main.py</code>: injects poisoning at the protocol layer.</li>
+        </ul>
+
+        <h2 id="dependencies">Dependencies</h2>
+        <p>
+          <code>pyproject.toml</code> declares minimum Python 3.11 and pins core packages:</p>
+        <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Package</th><th>Version</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>anthropic</td><td>0.71.0</td></tr>
+            <tr><td>fastmcp</td><td>2.12.5</td></tr>
+            <tr><td>matplotlib</td><td>3.10.7</td></tr>
+            <tr><td>mcp</td><td>1.18.0</td></tr>
+            <tr><td>networkx</td><td>3.3</td></tr>
+            <tr><td>numpy</td><td>2.3.4</td></tr>
+            <tr><td>Pillow</td><td>12.0.0</td></tr>
+            <tr><td>protobuf</td><td>6.33.0</td></tr>
+            <tr><td>python-dotenv</td><td>1.1.1</td></tr>
+            <tr><td>PyYAML</td><td>6.0.3</td></tr>
+            <tr><td>requests</td><td>2.32.5</td></tr>
+            <tr><td>torch</td><td>2.6.0</td></tr>
+            <tr><td>tqdm</td><td>4.66.4</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h2 id="research-context">Research Context</h2>
+        <p>
+          The accompanying paper (<code>paper.md</code>) “Terrarium: Revisiting the Blackboard for Multi-Agent Safety, Privacy, and Security Studies” motivates the framework. Key points:
+        </p>
+        <ul>
+          <li>LLM-powered MAS unlock nuanced collaboration but expand attack surfaces (misalignment, agent compromise, message tampering, data poisoning).</li>
+          <li>Terrarium repurposes blackboards to provide fine-grained observability and rapid iteration across configurable tasks.</li>
+          <li>Three cooperative scenarios and four representative attacks demonstrate the flexibility of the platform.</li>
+        </ul>
+        <p>
+          The paper situates Terrarium alongside DCOP literature, multi-agent negotiation, and security games, emphasizing the need for structured evaluation environments similar to how Gymnasium standardized RL benchmarks.
+        </p>
+
+        <h2 id="roadmap">Roadmap</h2>
+        <p>
+          Outstanding items from <code>README.md</code>:</p>
+        <ul>
+          <li>Parallelize simulations across multiple seeds.</li>
+          <li>Implement a production-ready vLLM client.</li>
+          <li>Add multi-step negotiation environments beyond current trading scenarios.</li>
+        </ul>
+
+        <h2 id="citation">Citation</h2>
+        <pre><code class="language-bibtex">@article{nakamura2025terrarium,
+  title={Terrarium: Revisiting the Blackboard for Multi-Agent Safety, Privacy, and Security Studies},
+  author={Nakamura, Mason and Kumar, Abhinav and Mahmud, Saaduddin and Abdelnabi, Sahar and Zilberstein, Shlomo and Bagdasarian, Eugene},
+  journal={arXiv preprint arXiv:2510.14312},
+  year={2025}
+}</code></pre>
+
+        <h2 id="license">License</h2>
+        <p>
+          Terrarium is released under the MIT License (<code>LICENSE</code>). Use, adapt, and redistribute with attribution.
+        </p>
 
         <nav class="bottom-nav" aria-label="Page navigation">
-          <a class="card-link" href="#previous"><small>Previous</small>Getting Started</a>
-          <a class="card-link" style="text-align:right" href="#next"><small>Next</small>Installation</a>
+          <a class="card-link" href="#operations"><small>Previous</small>Operations</a>
+          <a class="card-link" style="text-align:right" href="#research-context"><small>Next</small>Research Context</a>
         </nav>
       </article>
 
@@ -424,7 +834,7 @@ pip install yourframework</code></pre>
   </div>
 
   <footer class="site-footer">
-    <div>© <span id="year"></span> YourOrg • <a href="/license">MIT License</a> • <a href="/privacy">Privacy</a></div>
+    <div>© <span id="year"></span> Terrarium contributors • MIT Licensed • Documentation snapshot generated from <code>terrarium_copy/</code></div>
   </footer>
 
   <!-- Optional: Prism.js for syntax highlighting -->
@@ -456,13 +866,16 @@ pip install yourframework</code></pre>
     const menuBtn = document.getElementById('menuBtn');
     const backdrop = document.getElementById('sidebarBackdrop');
     const toggleSidebar = (open) => {
+      if (!sidebar || !backdrop || !menuBtn) return;
       sidebar.classList.toggle('open', open);
       backdrop.classList.toggle('show', open);
       backdrop.hidden = !open;
       menuBtn.setAttribute('aria-expanded', String(open));
     };
-    menuBtn.addEventListener('click', () => toggleSidebar(!sidebar.classList.contains('open')));
-    backdrop.addEventListener('click', () => toggleSidebar(false));
+    if (menuBtn && sidebar && backdrop) {
+      menuBtn.addEventListener('click', () => toggleSidebar(!sidebar.classList.contains('open')));
+      backdrop.addEventListener('click', () => toggleSidebar(false));
+    }
 
     // ===== Search (client-side, no deps) =====
     document.addEventListener('DOMContentLoaded', () => {
@@ -657,11 +1070,6 @@ pip install yourframework</code></pre>
     document.addEventListener('scroll', updateActive, { passive: true });
     updateActive();
 
-    // Version selector hook (replace with real logic)
-    document.getElementById('versionSelect').addEventListener('change', (e) => {
-      const version = e.target.value; // TODO: Navigate to versioned docs root
-      console.log('Switch to version:', version);
-    });
   </script>
 
   <script>

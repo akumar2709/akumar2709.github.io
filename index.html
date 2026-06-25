@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Abhinav Kumar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Researcher in ML/AI. Publications, projects, and contact." />
+  <meta name="description" content="PhD student at UMass Amherst. Research in Trustworthy & Responsible AI (robustness, privacy, security, evals). Publications, talks, awards, and contact." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="theme-color" content="#0b0b0c" />
@@ -29,6 +29,9 @@
     <symbol id="file" viewBox="0 0 24 24">
       <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5zm1 7V3.5L18.5 9H15z"/>
     </symbol>
+    <symbol id="linkedin" viewBox="0 0 24 24">
+      <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.75 2.63 4.75 6.05V23h-4v-5.8c0-1.38-.03-3.15-1.92-3.15-1.92 0-2.22 1.5-2.22 3v5.95h-4V8.5z"/>
+    </symbol>
   </svg>
 
   <header class="site-header">
@@ -40,8 +43,10 @@
         <a href="#pubs">Publications</a>
         <a href="#projects">Projects</a>
         <a href="#teaching">Teaching</a>
+        <a href="#talks">Talks</a>
+        <a href="#awards">Awards</a>
+        <a href="#service">Service</a>
         <a href="#contact">Contact</a>
-        <!-- if a stray theme button exists in old HTML, CSS below hides it -->
       </nav>
     </div>
   </header>
@@ -49,12 +54,12 @@
   <main id="main" class="wrap">
     <!-- HERO -->
     <section class="hero" aria-labelledby="intro">
-      <img class="avatar" src="assets/images/profile.jpg" alt="Portrait of Arnav Kumar" />
+      <img class="avatar" src="assets/profile.png" alt="Portrait of Abhinav Kumar" />
       <div>
         <h1 id="intro">Abhinav Kumar</h1>
-        <p class="tagline">PhD Student. Trustworthy and Responsible AI</p>
+        <p class="tagline">PhD student • AI Security and Safety</p>
         <p class="meta">
-          <a class="chip" href="abhinavk@umass.edu" aria-label="Email">
+          <a class="chip" href="mailto:abhinavk@umass.edu" aria-label="Email">
             <svg aria-hidden="true" class="icon"><use href="#mail"></use></svg> Email
           </a>
           <a class="chip" href="https://github.com/akumar2709" target="_blank" rel="noopener">
@@ -62,6 +67,9 @@
           </a>
           <a class="chip" href="https://scholar.google.com/citations?hl=en&user=WEeRlsUAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener">
             <svg aria-hidden="true" class="icon"><use href="#scholar"></use></svg> Scholar
+          </a>
+          <a class="chip" href="https://www.linkedin.com/in/abhinav-kumar-1b6883123" target="_blank" rel="noopener">
+            <svg aria-hidden="true" class="icon"><use href="#linkedin"></use></svg> LinkedIn
           </a>
           <a class="chip" href="assets/docs/cv.pdf" target="_blank" rel="noopener">
             <svg aria-hidden="true" class="icon"><use href="#file"></use></svg> CV
@@ -73,44 +81,142 @@
     <!-- ABOUT -->
     <section id="about" aria-labelledby="about-h">
       <h2 id="about-h">About</h2>
-      <p>I’m a PhD student at UMass Amherst where my research focuses on trustworthy machine learning—robustness, privacy, and evaluation. I also enjoy working out and reading books(sometimes not finishing them)</p>
+      <p>I'm a PhD student in Computer Science at the University of Massachusetts (UMass) Amherst, advised by Eugene Bagdasarian. My research focuses on Trustworthy and Responsible AI—robustness, privacy, security, and evaluation. Previously, I completed a B.S. in Computer Engineering and an M.S. in Artificial Intelligence at Saint Louis University (SLU), advised by Reza Tourani.</p>
     </section>
 
     <!-- NEWS -->
     <section id="news" aria-labelledby="news-h">
       <h2 id="news-h">News</h2>
-      <ul id="news-list" class="timeline" aria-live="polite"></ul>
+      <ul id="news-list" class="timeline" aria-live="polite">
+        <li><time datetime="2025-10-16">2025-10-16</time> Terrarium preprint released.</li>
+        <li><time datetime="2025-09-03">2025-09-03</time> Reasoning Gates preprint released.</li>
+        <li><time datetime="2025-06-01">2025-06-01</time> Privacy Analysis of Oblivious DNS over HTTPS received the IEEE/IFIP DSN Best Paper Award.</li>
+        <li><time datetime="2025-03-01">2025-03-01</time> Talk: OverThink at Google Adversarial ML Knowledge Sharing.</li>
+        <li><time datetime="2024-07-01">2024-07-01</time> Invited talk at Intel SPR Tech Talks.</li>
+        <li><time datetime="2024-06-01">2024-06-01</time> Presented Fides at the NSF RINGS Workshop.</li>
+      </ul>
     </section>
 
     <!-- PUBLICATIONS -->
     <section id="pubs" aria-labelledby="pubs-h">
-      <div class="section-header">
-        <h2 id="pubs-h">Publications</h2>
-        <div class="pub-controls">
-          <input id="pub-search" class="input" type="search" placeholder="Search title/venue/authors…" aria-label="Search publications" />
-          <select id="pub-year" class="input" aria-label="Filter by year">
-            <option value="">All years</option>
-          </select>
-        </div>
-      </div>
-      <ol id="pub-list" class="pubs"></ol>
+      <h2 id="pubs-h">Publications</h2>
+      <ol id="pub-list" class="pubs">
+        <li>
+          Mason Nakamura*, Abhinav Kumar*, Saswat Das*, Sahar Abdelnabi, Saaduddin Mahmud, Ferdinando Fioretto, Shlomo Zilberstein, Eugene Bagdasarian.
+          <span class="title">COLOSSEUM: Auditing Collusion in Cooperative Multi-Agent Systems</span>.
+          <span class="venue">arXiv</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2602.15198" target="_blank" rel="noopener">Paper</a><a href="https://github.com/umass-ai-safety/colosseum" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Mason Nakamura*, Abhinav Kumar*, Saaduddin Mahmud, Sahar Abdelnabi, Shlomo Zilberstein, Eugene Bagdasarian.
+          <span class="title">Terrarium: Revisiting the Blackboard for Multi-Agent Safety, Privacy and Security Studies</span>.
+          <span class="venue">arXiv</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2510.14312" target="_blank" rel="noopener">Paper</a><a href="https://github.com/umass-aisec/Terrarium" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Abhinav Kumar, Jaechul Roh, Ali Naseh, Amir Houmansadr, Eugene Bagdasarian.
+          <span class="title">Throttling Web Agents Using Reasoning Gates</span>.
+          <span class="venue">arXiv</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2509.01619" target="_blank" rel="noopener">Paper</a><a href="https://github.com/umass-aisec/throttling-web-agent" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Hyejun Jeong, Mohammadreza Teymoorianfard, Abhinav Kumar, Amir Houmansadr, Eugene Bagdasarian.
+          <span class="title">Network-Level Prompt and Trait Leakage in Local Research Agents</span>.
+          <span class="venue">USENIX Security 2026</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2508.20282" target="_blank" rel="noopener">Paper</a><a href="https://github.com/umass-aisec/wra" target="_blank" rel="noopener">Code</a><a href="https://huggingface.co/datasets/juniworld/prompt_inference_traces" target="_blank" rel="noopener">Dataset</a></span>
+        </li>
+        <li>
+          Abhinav Kumar, Jaechul Roh, Ali Naseh, Marzena Karpinska, Mohit Iyyer, Amir Houmansadr, Eugene Bagdasarian.
+          <span class="title">OverThink: Slowdown Attacks on Reasoning LLMs</span>.
+          <span class="venue">arXiv</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2502.02542" target="_blank" rel="noopener">Paper</a><a href="https://github.com/akumar2709/OVERTHINK_public" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Abhinav Kumar, George Torres, Noah Guzinski, Gaurav Panwar, Reza Tourani, Satyajayant Misra, Marcin Spoczynski, Mona Vij, Nageen Himayat.
+          <span class="title">LATTEO: A Framework to Support Learning Asynchronously Tempered with Trusted Execution and Obfuscation</span>.
+          <span class="venue">arXiv</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2502.04601" target="_blank" rel="noopener">Paper</a></span>
+        </li>
+        <li>
+          Mohammad Salari, Abhinav Kumar, Federico Rinaudi, Reza Tourani, Alessio Sacco, Flavio Esposito.
+          <span class="title">Privacy Analysis of Oblivious DNS over HTTPS: a Website Fingerprinting Study</span>.
+          <span class="venue">IEEE DSN 2025, Best Paper Award</span>.
+          <span class="links"><a href="https://drive.google.com/file/d/1-beEsIc5x0ImcjCR5Run5KUob_xVgI_Y/view?usp=sharing" target="_blank" rel="noopener">Paper</a><a href="https://zenodo.org/records/15115717" target="_blank" rel="noopener">Dataset</a></span>
+        </li>
+        <li>
+          Zhen Guo, Abhinav Kumar, Reza Tourani.
+          <span class="title">Persistent Backdoor Attacks in Continual Learning</span>.
+          <span class="venue">USENIX Security 2025</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2409.13864" target="_blank" rel="noopener">Paper</a><a href="https://zenodo.org/records/14728872" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Chenxi Li, Abhinav Kumar, Zhen Guo, Jie Hou, Reza Tourani.
+          <span class="title">Unveiling the Unseen: Exploring Whitebox Membership Inference through the Lens of Explainability</span>.
+          <span class="venue">arXiv</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2407.01306" target="_blank" rel="noopener">Paper</a></span>
+        </li>
+        <li>
+          Nexhi Sula, Abhinav Kumar, Jie Hou, Han Wang, Reza Tourani.
+          <span class="title">Silver Linings in the Shadows: Harnessing Membership Inference for Machine Unlearning</span>.
+          <span class="venue">IEEE CNS 2025</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2407.00866" target="_blank" rel="noopener">Paper</a></span>
+        </li>
+        <li>
+          Abhinav Kumar, Miguel A. Guirao Aguilera, Reza Tourani, Satyajayant Misra.
+          <span class="title">A Generative Framework for Low-Cost Result Validation of Machine Learning-as-a-Service Inference</span>.
+          <span class="venue">ACM ASIACCS 2024</span>.
+          <span class="links"><a href="https://arxiv.org/abs/2304.00083" target="_blank" rel="noopener">Paper</a><a href="https://github.com/akumar2709/Fides_AsiaCCS" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Sean Dougherty, Abhinav Kumar, Jie Hou, Reza Tourani, Atena M. Tabakhi.
+          <span class="title">A Stealthy Inference Attack on Split Learning with a Split-Fuse Defensive Measure</span>.
+          <span class="venue">IEEE CNS 2023</span>.
+          <span class="links"><a href="https://drive.google.com/file/d/1U2Q8HjH02GMYTqR5WYqYHu8SfZCwrj_Z/view?usp=sharing" target="_blank" rel="noopener">Paper</a></span>
+        </li>
+        <li>
+          Dianshi Yang, Abhinav Kumar, Stuart Ray, Wei Wang, Reza Tourani.
+          <span class="title">IoT Sentinel: Correlation-based Attack Detection, Localization, and Authentication in IoT Networks</span>.
+          <span class="venue">IEEE ICCCN 2023</span>.
+          <span class="links"><a href="https://drive.google.com/file/d/1PhqQAgdILLJgaFWW5fDIhajhPGbVqwt4/view?usp=share_link" target="_blank" rel="noopener">Paper</a></span>
+        </li>
+        <li>
+          Abhinav Kumar, Reza Tourani, Mona Vij, Srikathyayani Srikanteswara.
+          <span class="title">SCLERA: A framework for Privacy Preserving MLaaS at the Pervasive Edge</span>.
+          <span class="venue">IEEE PERCOM 2022, Best Industry Track Paper</span>.
+          <span class="links"><a href="https://drive.google.com/file/d/1DnCXL5zENdMFl4KJm9VZwqDOIXS_7Vkt/view?usp=sharing" target="_blank" rel="noopener">Paper</a><a href="https://github.com/akumar2709/SCLERA" target="_blank" rel="noopener">Code</a></span>
+        </li>
+        <li>
+          Abhinav Kumar.
+          <span class="title">Towards Attack-Agnostic Validation of Machine Learning as a Service</span>.
+          <span class="venue">Master's Thesis</span>.
+          <span class="links"><a href="https://drive.google.com/file/d/1YTMXlxOX8O0SfDMAs3wvjKme10szaQBV/view?usp=sharing" target="_blank" rel="noopener">Paper</a></span>
+        </li>
+      </ol>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects" aria-labelledby="projects-h">
-      <h2 id="projects-h">Selected Projects</h2>
+      <h2 id="projects-h">Selected Repositories</h2>
       <div class="grid" id="projects-grid">
         <article class="card">
-          <h3><a href="#">Lightweight evals for LLM safety</a></h3>
-          <p>Small, fast checks you can run before shipping an agent.</p>
+          <h3><a href="https://github.com/umass-ai-safety/colosseum" target="_blank" rel="noopener">COLOSSEUM</a></h3>
+          <p>A framework for auditing collusion in cooperative multi-agent systems.</p>
         </article>
         <article class="card">
-          <h3><a href="#">Robust audio prompts</a></h3>
-          <p>Exploring multilingual attacks and defenses for audio LLMs.</p>
+          <h3><a href="https://github.com/umass-aisec/Terrarium" target="_blank" rel="noopener">Terrarium</a></h3>
+          <p>A configurable framework for studying decentralized LLM-based multi-agent systems.</p>
         </article>
         <article class="card">
-          <h3><a href="#">Reproducible notebooks</a></h3>
-          <p>Cookiecutter for dependable ML experiments.</p>
+          <h3><a href="https://github.com/umass-aisec/throttling-web-agent" target="_blank" rel="noopener">Throttling Web Agent</a></h3>
+          <p>Reasoning-gated web-agent experiments and code.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://github.com/umass-aisec/wra" target="_blank" rel="noopener">WRA</a></h3>
+          <p>Code for network-level prompt and trait leakage in local research agents.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://github.com/akumar2709/OVERTHINK_public" target="_blank" rel="noopener">OVERTHINK_public</a></h3>
+          <p>Code for slowdown attacks on reasoning LLMs.</p>
         </article>
       </div>
     </section>
@@ -118,22 +224,58 @@
     <!-- TEACHING -->
     <section id="teaching" aria-labelledby="teaching-h">
       <h2 id="teaching-h">Teaching</h2>
-      <ul class="compact">
-        <li>Spring 2025 — Intro to ML (TA)</li>
-        <li>Fall 2024 — Responsible AI reading group (organizer)</li>
+      <ul class="compact" id="teaching-list">
+        <li>Fall 2024 — CICS 160 Intro to Object-Oriented Programming, University of Massachusetts Amherst — Teaching Assistant</li>
+        <li>Spring 2024 — CSCI 1300/5001 Intro to Object Oriented Programming, Saint Louis University — Teaching Assistant</li>
+        <li>Fall 2023 — CSCI 4530/5530 Computer Security, Saint Louis University — Teaching Assistant</li>
+        <li>Fall 2023 — CSCI 1025 Intro to CS: Cybersecurity, Saint Louis University — Teaching Assistant</li>
+      </ul>
+    </section>
+
+    <!-- TALKS -->
+    <section id="talks" aria-labelledby="talks-h">
+      <h2 id="talks-h">Talks</h2>
+      <ul class="compact" id="talks-list">
+        <li>March 2025 — "OverThink: Slowdown Attacks on Reasoning LLMs" at Google Adversarial ML Knowledge Sharing</li>
+        <li>July 2024 — "DcTC: Towards Data-centric Trusted Computing" at Intel SPR Tech Talks</li>
+        <li>June 2023 — "Fides: A Generative Framework for Result Validation of Outsourced Machine Learning Workloads via TEE" at NSF RINGS Workshop</li>
+      </ul>
+    </section>
+
+    <!-- AWARDS / GRANTS -->
+    <section id="awards" aria-labelledby="awards-h">
+      <h2 id="awards-h">Awards & Grants</h2>
+      <ul class="compact" id="awards-list">
+        <li>June 2025 — IEEE/IFIP DSN Best Paper Award</li>
+        <li>Spring 2024 — SLU Edward Doisy Award finalist</li>
+        <li>Fall 2023 — IEEE ICNP Travel Grant</li>
+        <li>Fall 2023 — ACM CCS Travel Grant</li>
+        <li>Spring 2022 — Best Industry Track Paper, IEEE PERCOM</li>
+        <li>Spring 2022 — SLU SURGE (Scholarly Undergraduate Research Grants and Experiences)</li>
+        <li>Fall 2020 — Winner of SLU Geospatial Innovation Challenge (SLU, NGA)</li>
+        <li>Fall 2019 to Spring 2023 — Saint Louis University Scholarship</li>
+      </ul>
+    </section>
+
+    <!-- REVIEWING / SERVICE -->
+    <section id="service" aria-labelledby="service-h">
+      <h2 id="service-h">Service</h2>
+      <ul class="compact" id="service-list">
+        <li>2025 — IEEE INFOCOM reviewer</li>
+        <li>2024 — IEEE Internet of Things reviewer</li>
       </ul>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" aria-labelledby="contact-h">
       <h2 id="contact-h">Contact</h2>
-      <p>Email is best: <a href="mailto:you@domain.com">you@domain.com</a></p>
+      <p>Email: <a href="mailto:abhinavk@umass.edu">abhinavk@umass.edu</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <p>© <span id="year"></span> Abhinav Kumar • Built with plain HTML/CSS/JS (by ChatGPT) • <a href="https://akumar2709.github.io">akumar2709.github.io</a></p>
+      <p>© <span id="year"></span> Abhinav Kumar • Built with plain HTML/CSS/JS • <a href="https://akumar2709.github.io">akumar2709.github.io</a></p>
       <p class="muted" id="last-updated">Last updated: —</p>
     </div>
   </footer>
