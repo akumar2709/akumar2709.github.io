@@ -36,7 +36,6 @@
 
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/">Abhinav Kumar</a>
       <nav class="nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#news">News</a>
@@ -57,7 +56,7 @@
       <img class="avatar" src="assets/profile.png" alt="Portrait of Abhinav Kumar" />
       <div>
         <h1 id="intro">Abhinav Kumar</h1>
-        <p class="tagline">PhD student • AI Security and Safety</p>
+        <p class="tagline"><span class="emph">PhD student</span> • <span class="emph-alt">AI Security and Safety</span></p>
         <p class="meta">
           <a class="chip" href="mailto:abhinavk@umass.edu" aria-label="Email">
             <svg aria-hidden="true" class="icon"><use href="#mail"></use></svg> Email
@@ -79,26 +78,26 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about" aria-labelledby="about-h">
+    <section id="about" class="plain-section" aria-labelledby="about-h">
       <h2 id="about-h">About</h2>
-      <p>I'm a PhD student in Computer Science at the University of Massachusetts (UMass) Amherst, advised by Eugene Bagdasarian. My research focuses on Trustworthy and Responsible AI—robustness, privacy, security, and evaluation. Previously, I completed a B.S. in Computer Engineering and an M.S. in Artificial Intelligence at Saint Louis University (SLU), advised by Reza Tourani.</p>
+      <p>I'm a <span class="emph">PhD student in Computer Science</span> at <span class="emph-alt">the University of Massachusetts Amherst</span>, advised by <span class="emph">Eugene Bagdasarian</span>. My research focuses on <span class="emph-alt">Developing Safe and Secure AI systems</span> with emphasis on <span class="emph">robustness, privacy, security, and evaluation</span>. Previously, I completed a <span class="emph">B.S. in Computer Engineering</span> and an <span class="emph">M.S. in Artificial Intelligence</span> at <span class="emph-alt">Saint Louis University</span>, advised by <span class="emph">Reza Tourani</span>.</p>
     </section>
 
     <!-- NEWS -->
-    <section id="news" aria-labelledby="news-h">
+    <section id="news" class="plain-section" aria-labelledby="news-h">
       <h2 id="news-h">News</h2>
       <ul id="news-list" class="timeline" aria-live="polite">
-        <li><time datetime="2025-10-16">2025-10-16</time> Terrarium preprint released.</li>
-        <li><time datetime="2025-09-03">2025-09-03</time> Reasoning Gates preprint released.</li>
-        <li><time datetime="2025-06-01">2025-06-01</time> Privacy Analysis of Oblivious DNS over HTTPS received the IEEE/IFIP DSN Best Paper Award.</li>
-        <li><time datetime="2025-03-01">2025-03-01</time> Talk: OverThink at Google Adversarial ML Knowledge Sharing.</li>
-        <li><time datetime="2024-07-01">2024-07-01</time> Invited talk at Intel SPR Tech Talks.</li>
-        <li><time datetime="2024-06-01">2024-06-01</time> Presented Fides at the NSF RINGS Workshop.</li>
+         <li><time datetime="2026-06-01">2026-02-16</time> Visiting PhD student at <span class="emph-alt">Max Planck Institute for Intelligent Systems</span> and <span class="emph-alt">ELLIS Institute Tübingen</span>.</li>
+        <li><time datetime="2025-06-01">2025-06-01</time> Privacy Analysis of Oblivious DNS over HTTPS received the <span class="emph">IEEE/IFIP DSN Best Paper Award</span>.</li>
+        <li><time datetime="2025-03-01">2025-03-01</time> Talk: <span class="emph">OverThink</span> at <span class="emph-alt">Google Adversarial ML Knowledge Sharing</span>.</li>
+        <li><time datetime="2024-07-01">2024-07-01</time> Invited talk at <span class="emph">Intel SPR Tech Talks</span>.</li>
+        <li><time datetime="2024-06-01">2024-06-01</time> Presented <span class="emph">Fides</span> at the <span class="emph-alt">NSF RINGS Workshop</span>.</li>
+        <li><time datetime="2022-03-01">2022-03-01</time> Received the <span class="emph">Best Industry Track Paper</span> award at <span class="emph-alt">IEEE PERCOM</span>.</li>
       </ul>
     </section>
 
     <!-- PUBLICATIONS -->
-    <section id="pubs" aria-labelledby="pubs-h">
+    <section id="pubs" class="list-section" aria-labelledby="pubs-h">
       <h2 id="pubs-h">Publications</h2>
       <ol id="pub-list" class="pubs">
         <li>
@@ -185,12 +184,6 @@
           <span class="venue">IEEE PERCOM 2022, Best Industry Track Paper</span>.
           <span class="links"><a href="https://drive.google.com/file/d/1DnCXL5zENdMFl4KJm9VZwqDOIXS_7Vkt/view?usp=sharing" target="_blank" rel="noopener">Paper</a><a href="https://github.com/akumar2709/SCLERA" target="_blank" rel="noopener">Code</a></span>
         </li>
-        <li>
-          Abhinav Kumar.
-          <span class="title">Towards Attack-Agnostic Validation of Machine Learning as a Service</span>.
-          <span class="venue">Master's Thesis</span>.
-          <span class="links"><a href="https://drive.google.com/file/d/1YTMXlxOX8O0SfDMAs3wvjKme10szaQBV/view?usp=sharing" target="_blank" rel="noopener">Paper</a></span>
-        </li>
       </ol>
     </section>
 
@@ -222,7 +215,7 @@
     </section>
 
     <!-- TEACHING -->
-    <section id="teaching" aria-labelledby="teaching-h">
+    <section id="teaching" class="plain-section" aria-labelledby="teaching-h">
       <h2 id="teaching-h">Teaching</h2>
       <ul class="compact" id="teaching-list">
         <li>Fall 2024 — CICS 160 Intro to Object-Oriented Programming, University of Massachusetts Amherst — Teaching Assistant</li>
@@ -233,24 +226,22 @@
     </section>
 
     <!-- TALKS -->
-    <section id="talks" aria-labelledby="talks-h">
+    <section id="talks" class="plain-section" aria-labelledby="talks-h">
       <h2 id="talks-h">Talks</h2>
       <ul class="compact" id="talks-list">
-        <li>March 2025 — "OverThink: Slowdown Attacks on Reasoning LLMs" at Google Adversarial ML Knowledge Sharing</li>
-        <li>July 2024 — "DcTC: Towards Data-centric Trusted Computing" at Intel SPR Tech Talks</li>
-        <li>June 2023 — "Fides: A Generative Framework for Result Validation of Outsourced Machine Learning Workloads via TEE" at NSF RINGS Workshop</li>
+        <li>March 2025 — <span class="emph">"OverThink: Slowdown Attacks on Reasoning LLMs"</span> at <span class="emph-alt">Google Adversarial ML Knowledge Sharing</span></li>
+        <li>July 2024 — <span class="emph">"DcTC: Towards Data-centric Trusted Computing"</span> at <span class="emph-alt">Intel SPR Tech Talks</span></li>
+        <li>June 2023 — <span class="emph">"Fides: A Generative Framework for Result Validation of Outsourced Machine Learning Workloads via TEE"</span> at <span class="emph-alt">NSF RINGS Workshop</span></li>
       </ul>
     </section>
 
     <!-- AWARDS / GRANTS -->
-    <section id="awards" aria-labelledby="awards-h">
+    <section id="awards" class="plain-section" aria-labelledby="awards-h">
       <h2 id="awards-h">Awards & Grants</h2>
       <ul class="compact" id="awards-list">
-        <li>June 2025 — IEEE/IFIP DSN Best Paper Award</li>
+        <li>June 2025 — <span class="emph">IEEE/IFIP DSN Best Paper Award</span></li>
         <li>Spring 2024 — SLU Edward Doisy Award finalist</li>
-        <li>Fall 2023 — IEEE ICNP Travel Grant</li>
-        <li>Fall 2023 — ACM CCS Travel Grant</li>
-        <li>Spring 2022 — Best Industry Track Paper, IEEE PERCOM</li>
+        <li>Spring 2022 — <span class="emph">Best Industry Track Paper</span>, <span class="emph-alt">IEEE PERCOM</span></li>
         <li>Spring 2022 — SLU SURGE (Scholarly Undergraduate Research Grants and Experiences)</li>
         <li>Fall 2020 — Winner of SLU Geospatial Innovation Challenge (SLU, NGA)</li>
         <li>Fall 2019 to Spring 2023 — Saint Louis University Scholarship</li>
@@ -258,7 +249,7 @@
     </section>
 
     <!-- REVIEWING / SERVICE -->
-    <section id="service" aria-labelledby="service-h">
+    <section id="service" class="plain-section" aria-labelledby="service-h">
       <h2 id="service-h">Service</h2>
       <ul class="compact" id="service-list">
         <li>2025 — IEEE INFOCOM reviewer</li>
@@ -267,7 +258,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" aria-labelledby="contact-h">
+    <section id="contact" class="plain-section" aria-labelledby="contact-h">
       <h2 id="contact-h">Contact</h2>
       <p>Email: <a href="mailto:abhinavk@umass.edu">abhinavk@umass.edu</a></p>
     </section>
