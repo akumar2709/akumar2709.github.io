@@ -207,6 +207,23 @@ main > section h2::after {
 }
 
 .timeline { list-style: none; padding: 0; margin: 0; }
+.timeline .news-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration-color: color-mix(in oklab, var(--accent), transparent 65%);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  border-radius: 3px;
+}
+.timeline .news-link:hover,
+.timeline .news-link:focus-visible {
+  background: var(--accent-soft);
+  text-decoration-color: var(--accent);
+}
+.timeline .news-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 .timeline li {
   position: relative;
   margin: 0;
